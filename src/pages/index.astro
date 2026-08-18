@@ -1,0 +1,548 @@
+---
+import '../styles/global.css';
+
+const title = 'Puri Saren Agung Ubud — Panduan Warisan, Sejarah & Kunjungan';
+const description = 'Panduan independen Puri Saren Agung di Ubud: sejarah, arsitektur, jam kunjung, biaya, transportasi, fasilitas, etika, peta, dan tanya jawab.';
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const imagePath = '/images/ubud-palace-entrance.webp';
+const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
+
+const quickFacts = [
+  ['Nama lokal', 'Puri Saren Agung'],
+  ['Lokasi', 'Jl. Raya Ubud No.8, Ubud, Gianyar, Bali 80571'],
+  ['Jam kunjungan peta', 'Setiap hari, 07.00–17.00'],
+  ['Area publik siang', 'Umumnya tanpa tiket masuk'],
+  ['Waktu kunjungan', '30–60 menit untuk kompleks publik'],
+  ['Karakter', 'Puri kerajaan yang masih hidup dan ruang budaya']
+];
+
+const timeline = [
+  {
+    label: 'Masa kerajaan Ubud',
+    title: 'Kediaman raja dan pusat pemerintahan',
+    body: 'Puri Saren Agung berkembang sebagai kediaman keluarga kerajaan Ubud dan pusat kekuasaan lokal. Karena itu, kompleks ini bukan sekadar bangunan tua: fungsi kediaman, adat, dan representasi kerajaan tetap penting dalam cara tempat ini dipahami.'
+  },
+  {
+    label: 'Abad ke-20',
+    title: 'Ubud tumbuh sebagai ruang pertemuan seni',
+    body: 'Ubud makin dikenal sebagai pusat seni Bali. Lingkungan puri ikut menjadi bagian dari ekosistem seni pertunjukan, gamelan, upacara, dan patronase budaya yang membentuk citra Ubud hingga sekarang.'
+  },
+  {
+    label: 'Kehidupan budaya',
+    title: 'Tari dan tabuh sebagai tradisi berkelanjutan',
+    body: 'Pemerintah Kabupaten Gianyar mencatat Puri Saren Ubud secara rutin menghadirkan tari dan tabuh, dengan penekanan pada pelestarian seni pertunjukan dan fungsi ritual adat.'
+  },
+  {
+    label: 'Hari ini',
+    title: 'Sebagian dibuka, sebagian tetap privat',
+    body: 'Sebagian area dapat dikunjungi publik, sementara bagian lain tetap terkait dengan kehidupan keluarga kerajaan dan kegiatan adat. Batas akses dapat berubah ketika ada upacara atau kegiatan khusus.'
+  }
+];
+
+const architecture = [
+  ['01', 'Gerbang dan ambang', 'Gerbang bukan hanya elemen dekoratif. Dalam arsitektur Bali, ambang menandai perpindahan dari ruang luar menuju ruang yang memiliki tata, fungsi, dan tingkat kesakralan berbeda. Perhatikan susunan bata, batu paras, dan ukiran pada pintu masuk.'],
+  ['02', 'Bale dan halaman', 'Paviliun terbuka atau bale mengandalkan hubungan antara atap, tiang, halaman, dan sirkulasi udara. Pengalaman ruang terbentuk dari urutan halaman, bukan dari satu bangunan tertutup seperti istana Eropa.'],
+  ['03', 'Bata merah dan batu paras', 'Warna terakota, batu abu-abu, ukiran floral, serta detail figuratif memberi ritme pada dinding dan gerbang. Material tampak dekoratif sekaligus menunjukkan keterampilan tukang tradisional Bali.'],
+  ['04', 'Ruang yang tetap berfungsi', 'Jangan membaca seluruh kompleks sebagai objek pameran. Area tertentu masih berhubungan dengan kediaman, upacara, persiapan pertunjukan, dan aktivitas adat; rambu pembatas perlu dipatuhi.']
+];
+
+const facilities = [
+  ['Toilet / WC', 'Ketersediaan di area kunjungan publik dapat terbatas. Gunakan fasilitas umum di pusat Ubud sebelum masuk bila perlu.', 'caution'],
+  ['Parkir', 'Jangan mengandalkan parkir tepat di gerbang. Pusat Ubud padat; cari area parkir umum resmi dan ikuti petunjuk setempat.', 'caution'],
+  ['Akses kursi roda', 'Permukaan batu, ambang, dan anak tangga membuat rute tidak sepenuhnya bebas hambatan. Pendamping dapat membantu.', 'caution'],
+  ['Makanan & minuman', 'Banyak pilihan tipe warung, rumah makan, kedai kopi, dan toko kebutuhan harian di pusat Ubud; konsumsi dilakukan di luar area yang dibatasi.', 'ok'],
+  ['Akomodasi', 'Pusat Ubud memiliki tipe pondok wisata, rumah tamu, hotel butik, dan vila. Pilih berdasarkan akses pejalan kaki dan kebutuhan mobilitas, bukan peringkat komersial.', 'ok'],
+  ['Belanja kebutuhan', 'Pasar tradisional, minimarket, dan swalayan tersedia di kawasan Ubud. Periksa jam buka masing-masing fasilitas saat tiba.', 'ok'],
+  ['BBM & pengisian kendaraan listrik', 'SPBU dan titik pengisian kendaraan listrik tersedia di wilayah Ubud/Gianyar yang lebih luas; lokasi dan status operasional perlu dicek sebelum berangkat.', 'caution'],
+  ['Cuaca & teduh', 'Sebagian kunjungan berada di ruang terbuka. Siapkan pelindung matahari atau hujan; permukaan dapat licin setelah hujan.', 'caution']
+];
+
+const faq = [
+  ['Apakah masuk Puri Saren Agung gratis?', 'Akses ke area publik untuk kunjungan siang umumnya tidak dipungut tiket masuk. Pertunjukan budaya malam merupakan kegiatan terpisah dan dapat memerlukan tiket. Kebijakan dapat berubah, jadi periksa informasi di lokasi pada hari kunjungan.'],
+  ['Berapa lama waktu yang dibutuhkan?', 'Sekitar 30–60 menit cukup untuk mengamati area publik dengan tenang. Jika digabung dengan kawasan budaya pusat Ubud, siapkan sekitar 2–3 jam.'],
+  ['Apakah puri masih ditempati keluarga kerajaan?', 'Ya, sumber resmi pariwisata Indonesia menyebut sebagian kompleks masih digunakan keluarga kerajaan. Karena itu tidak semua bagian terbuka untuk umum.'],
+  ['Apakah ada pertunjukan tari setiap malam?', 'Pertunjukan tari tradisional sering diselenggarakan pada malam hari, tetapi jadwal, jenis pertunjukan, lokasi pelataran, dan tiket dapat berubah. Verifikasi jadwal pada hari kunjungan.'],
+  ['Apa pakaian yang tepat?', 'Gunakan pakaian sopan dan nyaman. Jika ada upacara atau area yang meminta ketentuan khusus, ikuti arahan petugas dan masyarakat setempat. Jangan memindahkan sesajen.'],
+  ['Apakah mudah dikunjungi dengan kursi roda?', 'Tidak sepenuhnya. Beberapa permukaan tidak rata, terdapat ambang dan anak tangga, dan ruang sirkulasi dapat sempit. Pengunjung dengan kebutuhan mobilitas sebaiknya datang dengan pendamping dan menilai rute di tempat.'],
+  ['Apakah tersedia parkir di depan puri?', 'Area pusat Ubud sangat padat dan parkir tepat di gerbang tidak dapat dijamin. Lebih aman merencanakan parkir umum resmi, turun di titik aman, atau berjalan dari akomodasi pusat kota.'],
+  ['Kapan waktu terbaik datang?', 'Pagi setelah jam buka biasanya lebih nyaman untuk mengamati detail arsitektur dan mengurangi paparan panas. Sore memberi suasana berbeda, tetapi jangan menyamakan jam kunjungan siang dengan jadwal pertunjukan malam.']
+];
+
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['TouristAttraction', 'LocalBusiness'],
+  name: 'Puri Saren Agung (Ubud Palace)',
+  alternateName: 'Istana Ubud',
+  description,
+  ...(canonical ? { url: canonical } : {}),
+  ...(Astro.site ? { image: new URL(imagePath, Astro.site).href } : {}),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Jl. Raya Ubud No.8',
+    addressLocality: 'Ubud',
+    addressRegion: 'Bali',
+    postalCode: '80571',
+    addressCountry: 'ID'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -8.506222586122313,
+    longitude: 115.25940537693005
+  },
+  openingHoursSpecification: [{
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+    opens: '07:00',
+    closes: '17:00'
+  }],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.3',
+    reviewCount: '20020',
+    bestRating: '5'
+  },
+  priceRange: 'Area publik siang umumnya gratis; pertunjukan budaya dapat berbayar',
+  isAccessibleForFree: true
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([question, answer]) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer }
+  }))
+};
+---
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1d1915" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(attractionSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  </head>
+  <body>
+    <a href="#konten" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">Lewati ke konten utama</a>
+
+    <header class="absolute inset-x-0 top-0 z-30 border-b border-white/15 text-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 lg:px-8">
+        <a href="#atas" aria-label="Puri Saren Ubud — kembali ke atas" class="flex items-center gap-3 no-underline">
+          <img src="/favicon.svg" width="44" height="44" alt="" class="h-11 w-11 rounded-xl" />
+          <span class="leading-tight">
+            <strong class="serif block text-lg">Puri Saren Ubud</strong>
+            <span class="text-[.67rem] font-bold tracking-[.16em] text-white/70">PANDUAN WARISAN</span>
+          </span>
+        </a>
+        <nav aria-label="Navigasi utama" class="hidden items-center gap-6 text-sm font-semibold lg:flex">
+          <a href="#sejarah" class="no-underline hover:text-[#e7c88f]">Sejarah</a>
+          <a href="#kunjungan" class="no-underline hover:text-[#e7c88f]">Kunjungan</a>
+          <a href="#transportasi" class="no-underline hover:text-[#e7c88f]">Transportasi</a>
+          <a href="#fasilitas" class="no-underline hover:text-[#e7c88f]">Fasilitas</a>
+          <a href="#sekitar" class="no-underline hover:text-[#e7c88f]">Sekitar</a>
+          <a href="#faq" class="no-underline hover:text-[#e7c88f]">Tanya jawab</a>
+        </nav>
+        <a href="#peta" class="btn-secondary text-sm text-white">Lihat peta</a>
+      </div>
+    </header>
+
+    <main id="konten">
+      <section id="atas" class="relative min-h-[880px] overflow-hidden bg-[#181411] text-white lg:min-h-[760px]">
+        <img src="/images/ubud-palace-entrance.webp" alt="Gerbang dan arsitektur Puri Saren Agung di pusat Ubud" width="1800" height="1200" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="hero-overlay hero-grid absolute inset-0"></div>
+        <div class="relative mx-auto flex min-h-[880px] max-w-7xl items-end px-5 pb-14 pt-36 lg:min-h-[760px] lg:px-8 lg:pb-16">
+          <div class="grid w-full gap-10 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
+            <div class="max-w-4xl">
+              <div class="mb-6 flex flex-wrap gap-2">
+                <span class="tag !bg-white/12 !text-[#f2dfbb]">Ubud · Kabupaten Gianyar</span>
+                <span class="tag !bg-white/12 !text-[#f2dfbb]">Puri kerajaan & ruang budaya</span>
+              </div>
+              <p class="mb-4 text-sm font-bold uppercase tracking-[.2em] text-[#e7c88f]">Panduan independen · nonkomersial</p>
+              <h1 class="serif max-w-4xl text-[clamp(3.8rem,9vw,8rem)] leading-[.82] tracking-[-.055em]">Puri Saren<br /><span class="text-[#e7c88f]">Agung.</span></h1>
+              <p class="mt-7 max-w-2xl text-lg leading-8 text-white/82 lg:text-xl">Di jantung Ubud, istana ini masih dibaca sebagai ruang hidup: kediaman kerajaan, panggung seni, halaman upacara, dan arsip arsitektur Bali yang dapat dipahami melalui detail, tata ruang, dan etika berkunjung.</p>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <a class="btn-primary" href="#kunjungan">Rencanakan kunjungan <span aria-hidden="true">↓</span></a>
+                <a class="btn-secondary" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer">Buka lokasi di Google Maps <span aria-hidden="true">↗</span></a>
+              </div>
+              <p class="mt-5 text-xs text-white/55">Foto: Niklas Weiss / Unsplash · berkas disajikan secara lokal.</p>
+            </div>
+            <aside class="glass rounded-[28px] p-6 lg:p-7" aria-label="Ringkasan kunjungan">
+              <div class="flex items-start justify-between gap-4 border-b border-white/15 pb-5">
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-[.16em] text-white/55">Ringkas</p>
+                  <p class="serif mt-1 text-2xl">Sebelum masuk</p>
+                </div>
+                <div class="rounded-full border border-[#e7c88f]/35 px-3 py-1 text-sm font-bold text-[#e7c88f]">4,3 / 5</div>
+              </div>
+              <dl class="mt-5 grid gap-5 text-sm sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                <div><dt class="text-white/50">Jam peta</dt><dd class="mt-1 font-bold">07.00–17.00</dd></div>
+                <div><dt class="text-white/50">Area siang</dt><dd class="mt-1 font-bold">Umumnya gratis</dd></div>
+                <div><dt class="text-white/50">Durasi</dt><dd class="mt-1 font-bold">30–60 menit</dd></div>
+                <div><dt class="text-white/50">Pakaian</dt><dd class="mt-1 font-bold">Sopan & nyaman</dd></div>
+              </dl>
+              <p class="mt-6 rounded-2xl bg-white/8 p-4 text-sm leading-6 text-white/70"><strong class="text-white">Penting:</strong> jam kunjungan siang dan jadwal pertunjukan malam adalah dua hal berbeda. Kegiatan adat dapat mengubah akses tanpa pemberitahuan jauh hari.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="pattern-border bg-[#fffaf1] py-16 lg:py-20" aria-labelledby="fakta-title">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="mb-9 grid gap-5 md:grid-cols-[.8fr_1.2fr] md:items-end">
+            <div><span class="eyebrow">Orientasi</span><h2 id="fakta-title" class="serif mt-3 text-4xl font-bold tracking-tight">Enam fakta untuk membaca tempat</h2></div>
+            <p class="section-copy md:justify-self-end">Data operasional dapat berubah; halaman ini membedakan fakta lokasi yang dapat diperbarui dari konteks sejarah dan budaya yang lebih stabil.</p>
+          </div>
+          <dl class="info-grid grid overflow-hidden rounded-[26px] border border-black/10 bg-white sm:grid-cols-2 lg:grid-cols-3">
+            {quickFacts.map(([term, detail]) => <div class="min-h-32 border-b border-black/10 p-6 sm:border-r lg:[&:nth-child(3n)]:border-r-0 lg:[&:nth-last-child(-n+3)]:border-b-0"><dt>{term}</dt><dd>{detail}</dd></div>)}
+          </dl>
+        </div>
+      </section>
+
+      <section id="sejarah" class="bg-[#1d1915] py-20 text-[#f6f0e6] lg:py-28">
+        <div class="mx-auto grid max-w-7xl gap-14 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
+          <div class="lg:sticky lg:top-8 lg:self-start">
+            <span class="eyebrow !text-[#d7ad67]">Sejarah & konteks</span>
+            <h2 class="section-title mt-5">Bukan reruntuhan. <span class="text-[#d7ad67]">Puri yang hidup.</span></h2>
+            <p class="mt-7 max-w-xl text-lg leading-8 text-white/68">Sumber pariwisata resmi Indonesia menyebut Istana Ubud atau Puri Saren Agung sebagai kediaman resmi keluarga kerajaan Ubud. Sebagian areanya dibuka untuk umum, sementara fungsi kediaman dan budaya tetap berjalan.</p>
+            <blockquote class="mt-8 border-l-2 border-[#d7ad67] pl-5 text-white/75">Cara paling tepat melihat Puri Saren Agung bukan hanya mencari “bangunan tertua”, tetapi memahami hubungan antara kekuasaan lokal, tata ruang Bali, pertunjukan, dan kehidupan adat di pusat Ubud.</blockquote>
+          </div>
+          <div class="timeline space-y-10">
+            {timeline.map((item) => <article class="timeline-item"><p class="text-xs font-bold uppercase tracking-[.16em] text-[#d7ad67]">{item.label}</p><h3 class="serif mt-1 text-2xl font-bold">{item.title}</h3><p class="mt-3 max-w-2xl text-white/62">{item.body}</p></article>)}
+            <div class="ml-12 rounded-2xl border border-white/12 bg-white/5 p-5 text-sm leading-6 text-white/58"><strong class="text-white">Catatan metodologi:</strong> kami menghindari tanggal pembangunan tunggal yang sering berbeda antar-sumber populer. Untuk konteks publik, sumber pemerintah dan pariwisata resmi diberi prioritas.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[#efe4d3] py-20 lg:py-28" aria-labelledby="arsitektur-title">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+            <div><span class="eyebrow">Cara membaca arsitektur</span><h2 id="arsitektur-title" class="section-title mt-4">Lihat urutan ruang, bukan hanya ukiran.</h2></div>
+            <p class="section-copy lg:justify-self-end">Arsitektur puri Bali dibentuk oleh halaman, gerbang, bale, ambang, material, dan fungsi. Bagian yang terlihat publik hanya satu lapisan dari kompleks yang lebih luas.</p>
+          </div>
+          <div class="mt-12 grid gap-5 md:grid-cols-2">
+            {architecture.map(([num, name, body]) => <article class="card-flat rounded-[24px] p-7"><div class="arch-number">{num}</div><h3 class="serif mt-5 text-2xl font-bold">{name}</h3><p class="mt-3 text-[#65584c]">{body}</p></article>)}
+          </div>
+          <div class="mt-12 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
+            <figure class="overflow-hidden rounded-[28px] bg-[#1d1915]">
+              <img src="/images/ubud-palace-pavilion.webp" alt="Paviliun dan detail arsitektur tradisional Bali di kawasan Puri Saren Agung" width="1800" height="1200" loading="lazy" class="h-full min-h-[420px] w-full object-cover" />
+            </figure>
+            <div class="rounded-[28px] bg-[#9f4f35] p-8 text-white lg:p-10">
+              <p class="text-xs font-bold uppercase tracking-[.16em] text-white/60">Etika visual</p>
+              <h3 class="serif mt-3 text-3xl font-bold">Foto dengan rasa hormat.</h3>
+              <p class="mt-5 text-white/78">Jangan memanjat gerbang, duduk di struktur ritual, menghalangi prosesi, atau memindahkan sesajen demi komposisi foto. Saat ada upacara atau pertunjukan, ikuti pembatas dan arahan di tempat.</p>
+              <p class="mt-7 text-xs text-white/55">Foto: Ameya Khanzode / Unsplash · berkas disajikan secara lokal.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kunjungan" class="bg-[#fffaf1] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <span class="eyebrow">Rencana kunjungan</span>
+          <div class="mt-4 grid gap-10 lg:grid-cols-[1fr_1fr]">
+            <div>
+              <h2 class="section-title">Datang dengan ekspektasi yang tepat.</h2>
+              <p class="section-copy mt-6">Puri Saren Agung cocok sebagai kunjungan singkat yang diperdalam lewat observasi. Nilainya bukan pada luas area publik, melainkan pada konteks kerajaan, arsitektur, dan budaya pertunjukan.</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <article class="card rounded-[22px] p-6"><span class="tag">Jam</span><h3 class="serif mt-4 text-2xl font-bold">07.00–17.00</h3><p class="mt-2 text-sm text-[#65584c]">Jam yang ditampilkan Google Maps saat panduan disusun. Akses dapat menyesuaikan kegiatan adat.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Biaya</span><h3 class="serif mt-4 text-2xl font-bold">Siang: umumnya gratis</h3><p class="mt-2 text-sm text-[#65584c]">Pertunjukan malam berbayar dan terpisah; harga tidak kami bekukan karena dapat berubah.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Waktu terbaik</span><h3 class="serif mt-4 text-2xl font-bold">Pagi setelah buka</h3><p class="mt-2 text-sm text-[#65584c]">Lebih nyaman untuk mengamati detail dan mengurangi paparan panas. Pusat Ubud semakin padat menjelang siang.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Durasi</span><h3 class="serif mt-4 text-2xl font-bold">30–60 menit</h3><p class="mt-2 text-sm text-[#65584c]">Tambahkan 2–3 jam jika berjalan di klaster budaya pusat Ubud.</p></article>
+            </div>
+          </div>
+
+          <div class="mt-12 grid gap-5 lg:grid-cols-3">
+            <article class="rounded-[24px] border border-black/10 bg-[#f2e7d4] p-7"><p class="text-xs font-bold uppercase tracking-[.14em] text-[#743625]">Sebelum masuk</p><h3 class="serif mt-2 text-2xl font-bold">Periksa kegiatan hari itu</h3><p class="mt-3 text-[#65584c]">Jika ada upacara, persiapan pertunjukan, atau acara keluarga, beberapa jalur dapat ditutup sementara. Hormati keputusan akses di lapangan.</p></article>
+            <article class="rounded-[24px] border border-black/10 bg-[#f2e7d4] p-7"><p class="text-xs font-bold uppercase tracking-[.14em] text-[#743625]">Di dalam</p><h3 class="serif mt-2 text-2xl font-bold">Bergerak pelan</h3><p class="mt-3 text-[#65584c]">Perhatikan ambang dan lantai tidak rata. Beri ruang kepada warga, petugas, musisi, dan rombongan upacara yang menggunakan kompleks.</p></article>
+            <article class="rounded-[24px] border border-black/10 bg-[#f2e7d4] p-7"><p class="text-xs font-bold uppercase tracking-[.14em] text-[#743625]">Pertunjukan malam</p><h3 class="serif mt-2 text-2xl font-bold">Anggap sebagai agenda terpisah</h3><p class="mt-3 text-[#65584c]">Jadwal tari dan gamelan dapat berbeda dari jam kunjungan siang. Verifikasi jenis pertunjukan, waktu mulai, dan tiket pada hari yang sama.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="transportasi" class="bg-[#e8d8bd] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
+            <div>
+              <span class="eyebrow">Transportasi rinci</span>
+              <h2 class="section-title mt-4">Menuju jantung Ubud.</h2>
+              <p class="section-copy mt-6">Alamat yang aman disebutkan kepada pengemudi: <strong>Puri Saren Agung, Jl. Raya Ubud No.8, Ubud, Kabupaten Gianyar</strong>. Waktu perjalanan sangat dipengaruhi kemacetan.</p>
+            </div>
+            <div class="space-y-4">
+              <details open class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Dari Bandara Internasional I Gusti Ngurah Rai (DPS)</summary><p class="mt-3 text-[#65584c]">Bandara Ngurah Rai adalah gerbang udara utama Bali. Pilihan darat meliputi taksi resmi bandara, taksi berizin, kendaraan sewaan dengan pengemudi, atau transportasi berbasis aplikasi sesuai zona jemput. Perjalanan ke Ubud dapat memanjang tajam pada jam sibuk; jangan membuat jadwal lanjutan terlalu rapat.</p></details>
+              <details class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Bus / angkutan umum</summary><p class="mt-3 text-[#65584c]">Layanan Trans Metro Dewata dan pengembangan konektivitas mobilitas Ubud dapat membantu perjalanan menuju wilayah Gianyar/Ubud, tetapi rute, titik berhenti, dan pola layanan pengumpan berubah. Gunakan kanal Dinas Perhubungan Provinsi Bali untuk memeriksa jaringan aktif pada hari perjalanan, lalu lanjutkan dengan berjalan kaki atau angkutan lokal dari titik terdekat pusat Ubud.</p></details>
+              <details class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Taksi dan transportasi berbasis aplikasi</summary><p class="mt-3 text-[#65584c]">Minta turun di titik tepi jalan yang aman dan tidak menghalangi arus pusat Ubud. Beberapa area memiliki aturan titik jemput lokal; ikuti rambu dan arahan petugas. Konfirmasikan tarif atau estimasi aplikasi sebelum berangkat.</p></details>
+              <details class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Mobil atau sepeda motor pribadi</summary><p class="mt-3 text-[#65584c]">Jalan pusat Ubud ramai, beberapa ruas sempit, dan tempat parkir dekat objek terbatas. Hindari berhenti sembarangan di depan gerbang. Gunakan fasilitas parkir umum resmi dan berjalan dari sana.</p></details>
+              <details class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Berjalan kaki dari pusat Ubud</summary><p class="mt-3 text-[#65584c]">Bila menginap di pusat Ubud, berjalan kaki sering menjadi pilihan paling sederhana. Perhatikan trotoar yang tidak selalu rata, penyeberangan yang sibuk, hujan, dan panas siang hari.</p></details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="fasilitas" class="bg-[#fffaf1] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-6 md:grid-cols-[.8fr_1.2fr] md:items-end">
+            <div><span class="eyebrow">Fasilitas & kebutuhan</span><h2 class="section-title mt-4">Hal kecil yang menentukan kenyamanan.</h2></div>
+            <p class="section-copy md:justify-self-end">Karena ini kompleks budaya di pusat kota, beberapa kebutuhan lebih realistis dipenuhi di kawasan Ubud sekitar daripada di dalam puri. Kami tidak merekomendasikan pedagang atau operator tertentu.</p>
+          </div>
+          <div class="mt-12 grid gap-px overflow-hidden rounded-[28px] border border-black/10 bg-black/10 md:grid-cols-2">
+            {facilities.map(([name, text, status]) => <article class="bg-white p-6 lg:p-7"><div class={`facility-status ${status === 'caution' ? 'caution' : ''}`}>{status === 'caution' ? 'Perlu direncanakan' : 'Mudah ditemukan di kawasan'}</div><h3 class="serif mt-3 text-2xl font-bold">{name}</h3><p class="mt-2 text-sm text-[#65584c]">{text}</p></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="overflow-hidden bg-[#1d1915] py-20 text-white lg:py-28" aria-labelledby="galeri-title">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <span class="eyebrow !text-[#d7ad67]">Suasana</span>
+          <div class="mt-4 grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end"><h2 id="galeri-title" class="section-title">Istana, air, batu, dan ruang upacara.</h2><p class="max-w-2xl text-white/62">Foto dipilih sebagai dokumentasi atmosfer Ubud dan kawasan istana; bukan ilustrasi buatan. Semua berkas gambar utama disimpan lokal agar halaman tidak bergantung pada tautan langsung gambar pihak ketiga.</p></div>
+          <figure class="mt-10 overflow-hidden rounded-[30px] border border-white/10">
+            <img src="/images/ubud-palace-lotus.webp" alt="Kolam teratai dan arsitektur Bali di kawasan Ubud" width="1800" height="1200" loading="lazy" class="h-[520px] w-full object-cover" />
+            <figcaption class="flex flex-wrap justify-between gap-2 bg-white/5 px-5 py-4 text-xs text-white/52"><span>Dokumentasi visual kawasan Ubud, Bali.</span><span>Foto: Mitch Hodiono / Unsplash · Lisensi Unsplash.</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="sekitar" class="bg-[#efe4d3] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-12 lg:grid-cols-2">
+            <div>
+              <span class="eyebrow">Makan di sekitar</span>
+              <h2 class="serif mt-4 text-4xl font-bold tracking-tight lg:text-5xl">Pilih tipe tempat, bukan “daftar terbaik”.</h2>
+              <p class="mt-5 text-[#65584c]">Sebagai panduan nonkomersial, kami tidak mengurutkan atau mempromosikan usaha tertentu. Di pusat Ubud, tipe pilihan yang lazim meliputi:</p>
+              <ul class="mt-6 grid gap-3 text-sm">
+                <li class="card-flat rounded-2xl p-4"><strong>Warung masakan Bali / Indonesia</strong> — cocok untuk nasi campur, sayur, lauk, dan menu harian.</li>
+                <li class="card-flat rounded-2xl p-4"><strong>Rumah makan vegetarian / nabati</strong> — Ubud memiliki banyak pilihan; tetap tanyakan bahan dan alergen.</li>
+                <li class="card-flat rounded-2xl p-4"><strong>Kedai kopi, roti, dan makanan ringan</strong> — berguna untuk istirahat singkat sebelum atau sesudah kunjungan.</li>
+                <li class="card-flat rounded-2xl p-4"><strong>Pasar dan toko kebutuhan</strong> — pilihan praktis untuk air minum, buah, dan kebutuhan perjalanan.</li>
+              </ul>
+            </div>
+            <div>
+              <span class="eyebrow">Objek sekitar</span>
+              <h2 class="serif mt-4 text-4xl font-bold tracking-tight lg:text-5xl">Susun satu lintasan budaya.</h2>
+              <p class="mt-5 text-[#65584c]">Beberapa tempat dapat digabung karena berada di pusat Ubud atau mudah dicapai dari sana. Tiket dan jam masing-masing objek perlu diperiksa terpisah.</p>
+              <div class="mt-6 grid gap-3">
+                <article class="card-flat rounded-2xl p-5"><h3 class="font-extrabold">Pasar Seni Ubud</h3><p class="mt-1 text-sm text-[#65584c]">Membaca hubungan pusat kerajaan, pasar, kerajinan, dan ruang kota Ubud.</p></article>
+                <article class="card-flat rounded-2xl p-5"><h3 class="font-extrabold">Pura Taman Saraswati</h3><p class="mt-1 text-sm text-[#65584c]">Kompleks pura dan lanskap air yang menambah konteks arsitektur serta kehidupan religius Bali.</p></article>
+                <article class="card-flat rounded-2xl p-5"><h3 class="font-extrabold">Jalur Bukit Campuhan</h3><p class="mt-1 text-sm text-[#65584c]">Pilihan berjalan kaki untuk melihat lanskap hijau di luar kepadatan pusat kota.</p></article>
+                <article class="card-flat rounded-2xl p-5"><h3 class="font-extrabold">Mandala Suci Wenara Wana</h3><p class="mt-1 text-sm text-[#65584c]">Kawasan hutan dan pura; perlakukan sebagai destinasi tersendiri dengan aturan satwa dan tiketnya sendiri.</p></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="peta" class="bg-[#fffaf1] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="mb-8 grid gap-5 md:grid-cols-[.85fr_1.15fr] md:items-end"><div><span class="eyebrow">Peta</span><h2 class="section-title mt-4">Titik pusat Ubud.</h2></div><p class="section-copy md:justify-self-end">Peta Google di bawah menggunakan antarmuka bahasa Indonesia. Memuat peta dapat menghubungkan browser Anda ke layanan Google; pengaturan privasi dijelaskan di kebijakan kami.</p></div>
+          <div class="overflow-hidden rounded-[28px] border border-black/10 bg-[#e6d4b5] shadow-2xl shadow-black/10">
+            <iframe class="map-frame h-[520px] w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6818.031900126996!2d115.25940537693005!3d-8.506222586122313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23d6af37eb24b%3A0x4bcdf69a281c3f32!2sUbud%20Palace!5e1!3m2!1sid!2sid!4v1787020627984!5m2!1sid!2sid&hl=id" width="600" height="450" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Peta Puri Saren Agung, Ubud"></iframe>
+          </div>
+          <div class="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-[#65584c]"><span>Koordinat peta: −8.506223, 115.259405</span><a class="source-link font-bold" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer">Buka petunjuk arah ↗</a></div>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-[#1d1915] py-20 text-white lg:py-28">
+        <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[.75fr_1.25fr] lg:px-8">
+          <div><span class="eyebrow !text-[#d7ad67]">Tanya Jawab</span><h2 class="section-title mt-4">Pertanyaan sebelum datang.</h2><p class="mt-6 text-white/60">Jawaban disusun untuk perencanaan praktis dan menghindari asumsi yang sering menyesatkan, terutama soal tiket, pertunjukan, akses, dan parkir.</p></div>
+          <div class="space-y-3">
+            {faq.map(([question, answer], index) => <details class="rounded-[20px] border border-white/12 bg-white/5 p-5" open={index === 0}><summary class="cursor-pointer list-none pr-8 font-extrabold">{question}</summary><p class="mt-3 text-sm leading-6 text-white/62">{answer}</p></details>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="sumber" class="bg-[#fffaf1] py-20 lg:py-24">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-10 lg:grid-cols-[.75fr_1.25fr]">
+            <div><span class="eyebrow">Sumber & metodologi</span><h2 class="serif mt-4 text-4xl font-bold tracking-tight">Transparan tentang asal informasi.</h2><p class="mt-5 text-[#65584c]">Kami memprioritaskan sumber pemerintah dan pariwisata resmi, kemudian membandingkannya dengan data peta untuk kebutuhan operasional. Tidak ada peringkat komersial atau komisi pemesanan.</p></div>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://diparda.gianyarkab.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Pemerintah daerah</span><strong class="mt-2 block">Dinas Pariwisata Kabupaten Gianyar</strong><span class="mt-1 block text-sm text-[#65584c]">Konteks pariwisata dan kebudayaan Kabupaten Gianyar.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://gianyarkab.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Pemerintah daerah</span><strong class="mt-2 block">Pemerintah Kabupaten Gianyar</strong><span class="mt-1 block text-sm text-[#65584c]">Informasi publik dan dokumentasi kegiatan budaya.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://www.indonesia.travel/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Nasional</span><strong class="mt-2 block">Indonesia.travel / Kementerian Pariwisata</strong><span class="mt-1 block text-sm text-[#65584c]">Konteks destinasi, keluarga kerajaan, dan seni pertunjukan.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://dishub.baliprov.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Transportasi</span><strong class="mt-2 block">Dinas Perhubungan Provinsi Bali</strong><span class="mt-1 block text-sm text-[#65584c]">Rujukan perubahan jaringan angkutan dan mobilitas Ubud.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://bali-airport.com/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Bandara</span><strong class="mt-2 block">Bandara Internasional I Gusti Ngurah Rai</strong><span class="mt-1 block text-sm text-[#65584c]">Informasi gerbang udara dan layanan bandara.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Data lokasi</span><strong class="mt-2 block">Google Maps</strong><span class="mt-1 block text-sm text-[#65584c]">Alamat, koordinat, jam operasional yang ditampilkan, dan agregat ulasan.</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 bg-[#171310] py-12 text-[#eee4d4]">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <img src="/brand/logo.svg" alt="Puri Saren Ubud — Panduan Warisan Gianyar" width="560" height="128" class="h-auto w-64 brightness-[1.7] invert-[.05]" />
+            <p class="mt-5 max-w-sm text-sm text-white/55">Proyek panduan wisata nirlaba yang membantu pengunjung memahami konteks tempat sebelum datang.</p>
+          </div>
+          <div class="grid gap-8 sm:grid-cols-2">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ad67]">Kebijakan</p>
+              <div class="mt-4 flex flex-col items-start gap-2 text-sm text-white/66">
+                <button class="source-link" data-dialog-open="privacy-dialog">Kebijakan Privasi</button>
+                <button class="source-link" data-dialog-open="terms-dialog">Ketentuan Layanan</button>
+                <button class="source-link" data-dialog-open="cookie-dialog">Pengaturan Kuki</button>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ad67]">Pernyataan independensi</p>
+              <p class="mt-4 text-sm leading-6 text-white/58">Situs ini adalah proyek panduan informasi pengunjung independen dan nirlaba, tanpa hubungan afiliasi dengan instansi pemerintah, keluarga kerajaan, pengelola destinasi, atau organisasi resmi.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-10 border-t border-white/10 pt-7 text-xs leading-6 text-white/45">
+          <p>Informasi destinasi dirujuk dan dibandingkan dengan materi publik Pemerintah Kabupaten Gianyar, Dinas Pariwisata Kabupaten Gianyar, Dinas Pariwisata Provinsi Bali, Dinas Perhubungan Provinsi Bali, serta Kementerian Pariwisata Republik Indonesia / Indonesia.travel. Situs ini tidak memuat rekomendasi komersial.</p>
+          <p class="mt-2">Hak gambar: seluruh hak cipta foto tetap berada pada fotografer masing-masing. Foto yang digunakan berasal dari Unsplash sesuai lisensinya dan disajikan sebagai berkas lokal.</p>
+          <p class="mt-2">© 2026 Panduan Warisan Puri Saren Ubud. Hak cipta dilindungi.</p>
+        </div>
+      </div>
+    </footer>
+
+    <dialog id="privacy-dialog" class="dialog-shell">
+      <div class="dialog-head"><div><p class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Dokumen situs</p><h2 class="serif text-2xl font-bold">Kebijakan Privasi</h2></div><button class="close-button" data-dialog-close aria-label="Tutup kebijakan privasi">×</button></div>
+      <div class="dialog-body">
+        <p><strong>Terakhir diperbarui: Agustus 2026</strong></p>
+        <p>Kami menerapkan prinsip pengumpulan data minimum. Situs ini tidak memiliki akun pengguna, basis data pelanggan, atau sistem pemesanan.</p>
+        <h3>Informasi yang kami kumpulkan</h3>
+        <ul><li>Data teknis penjelajahan yang diperlukan untuk penyajian dan keamanan situs, seperti alamat IP, jenis peramban, dan halaman yang diminta, sejauh tersedia melalui infrastruktur penyajian situs.</li><li>Kuki atau penyimpanan serupa yang dibutuhkan untuk menyimpan pilihan persetujuan Anda.</li><li>Data analitik hanya jika Anda mengaktifkan kategori analitik.</li><li>Informasi yang Anda berikan secara sukarela jika menghubungi pengelola melalui kanal kontak yang dipublikasikan pada domain situs.</li></ul>
+        <h3>Cara kami menggunakan informasi</h3>
+        <ul><li>Menyajikan dan meningkatkan isi serta pengalaman penggunaan.</li><li>Menganalisis pola lalu lintas secara agregat apabila persetujuan analitik diberikan.</li><li>Menanggapi permintaan yang dikirim secara sukarela.</li><li>Menjaga keamanan situs dan memenuhi kewajiban hukum yang berlaku.</li></ul>
+        <h3>Layanan pihak ketiga</h3>
+        <p>Halaman ini dapat menggunakan Google Maps untuk peta dan data lokasi. Google Analytics hanya dimuat setelah Anda memberikan persetujuan kategori analitik. Foto bersumber dari Unsplash berdasarkan Lisensi Unsplash, tetapi berkas utama disajikan dari situs ini dan tidak memerlukan skrip Unsplash.</p>
+        <h3>Dasar persetujuan dan penyimpanan</h3>
+        <p>Pilihan Kuki disimpan pada perangkat Anda agar situs dapat mengingat keputusan tersebut. Analitik non-esensial tidak diaktifkan secara bawaan. Anda dapat mengubah keputusan kapan saja melalui tautan “Pengaturan Kuki” di bagian kaki halaman.</p>
+        <h3>Hak Anda</h3>
+        <p>Jika GDPR atau peraturan perlindungan data lain berlaku terhadap pemrosesan Anda, hak yang relevan dapat mencakup akses, koreksi, penghapusan, pembatasan atau keberatan atas pemrosesan, serta pengajuan keluhan kepada otoritas pengawas yang berwenang. Permintaan dapat disampaikan melalui kanal kontak pengelola yang dipublikasikan pada domain situs.</p>
+        <h3>Tautan eksternal</h3>
+        <p>Ketika Anda membuka Google Maps atau situs sumber resmi, Anda meninggalkan situs ini dan kebijakan privasi pihak tersebut berlaku.</p>
+      </div>
+    </dialog>
+
+    <dialog id="terms-dialog" class="dialog-shell">
+      <div class="dialog-head"><div><p class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Dokumen situs</p><h2 class="serif text-2xl font-bold">Ketentuan Layanan</h2></div><button class="close-button" data-dialog-close aria-label="Tutup ketentuan layanan">×</button></div>
+      <div class="dialog-body">
+        <p><strong>Terakhir diperbarui: Agustus 2026</strong></p>
+        <p>Dengan mengakses dan menggunakan situs ini, Anda menyetujui ketentuan berikut.</p>
+        <h3>Penggunaan konten</h3>
+        <p>Semua isi disediakan untuk tujuan informasi dan edukasi perjalanan. Kami adalah proyek informasi wisata independen pihak ketiga dan tidak berafiliasi dengan Puri Saren Agung, keluarga kerajaan Ubud, Pemerintah Kabupaten Gianyar, instansi pemerintah, penjual tiket, atau operator komersial.</p>
+        <h3>Akurasi informasi</h3>
+        <p>Kami berupaya membandingkan sumber publik yang tepercaya, tetapi tidak dapat menjamin setiap informasi selalu lengkap atau mutakhir. Jam kunjungan, akses, harga, pertunjukan, kondisi jalan, transportasi, dan layanan dapat berubah. Verifikasi informasi penting melalui kanal resmi atau petugas di lokasi sebelum membuat keputusan perjalanan.</p>
+        <h3>Rekomendasi komersial</h3>
+        <p>Situs ini tidak menjual tiket, tidak menerima komisi pemesanan, dan tidak menyusun peringkat usaha. Bagian makanan, akomodasi, belanja, parkir, dan transportasi menjelaskan tipe layanan secara netral.</p>
+        <h3>Kekayaan intelektual</h3>
+        <p>Desain situs dan teks asli dilindungi hak cipta. Hak cipta foto tetap pada fotografer masing-masing dan digunakan sesuai lisensi sumber. Google Maps dan data Google digunakan sesuai ketentuan layanan Google.</p>
+        <h3>Batas tanggung jawab</h3>
+        <p>Situs disediakan “sebagaimana adanya” tanpa jaminan. Sejauh diizinkan hukum, pengelola tidak bertanggung jawab atas kerugian yang timbul karena ketergantungan pada informasi situs, perubahan kondisi lapangan, penutupan, keterlambatan, atau keputusan perjalanan pengguna.</p>
+        <h3>Keselamatan dan adat</h3>
+        <p>Pengunjung bertanggung jawab mematuhi rambu, arahan petugas, aturan adat, pembatas area, dan kondisi keselamatan setempat. Kegiatan upacara dapat memiliki prioritas atas aktivitas wisata.</p>
+      </div>
+    </dialog>
+
+    <dialog id="cookie-dialog" class="dialog-shell">
+      <div class="dialog-head"><div><p class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Preferensi privasi</p><h2 class="serif text-2xl font-bold">Pengaturan Kuki</h2></div><button class="close-button" data-dialog-close aria-label="Tutup pengaturan Kuki">×</button></div>
+      <div class="dialog-body">
+        <p><strong>Terakhir diperbarui: Agustus 2026</strong></p>
+        <p>Kami menggunakan penyimpanan minimum agar pilihan privasi dapat diingat. Analitik tidak aktif sampai Anda memberikan persetujuan.</p>
+        <div class="toggle-row"><div><strong>Kuki / penyimpanan yang diperlukan</strong><p class="mt-1 text-sm">Diperlukan untuk fungsi dasar dan menyimpan keputusan persetujuan.</p></div><label class="switch" aria-label="Penyimpanan yang diperlukan selalu aktif"><input type="checkbox" checked disabled /><span class="slider"></span></label></div>
+        <div class="toggle-row"><div><strong>Analitik — Google Analytics</strong><p class="mt-1 text-sm">Jika diaktifkan, membantu memahami penggunaan situs secara agregat. Google Analytics tidak dimuat sebelum persetujuan.</p></div><label class="switch" aria-label="Aktifkan analitik"><input id="cookie-analytics" type="checkbox" /><span class="slider"></span></label></div>
+        <div class="toggle-row"><div><strong>Preferensi</strong><p class="mt-1 text-sm">Dapat digunakan untuk mengingat pengaturan tampilan tambahan jika fitur tersebut ditambahkan. Saat ini tidak ada personalisasi profil.</p></div><label class="switch" aria-label="Aktifkan penyimpanan preferensi"><input id="cookie-preferences" type="checkbox" /><span class="slider"></span></label></div>
+        <div class="toggle-row"><div><strong>Pemasaran / iklan personal</strong><p class="mt-1 text-sm">Tidak digunakan oleh situs nirlaba ini. Tidak ada skrip iklan atau pelacakan pemasaran.</p></div><label class="switch" aria-label="Pemasaran tidak digunakan"><input type="checkbox" disabled /><span class="slider"></span></label></div>
+        <h3>Pengelolaan persetujuan</h3>
+        <p>Anda dapat mengubah pilihan kapan saja. Menonaktifkan analitik tidak menghalangi akses ke konten utama. Peta Google merupakan konten pihak ketiga yang dapat membuat koneksi ke layanan Google ketika bagian peta dimuat atau Anda berinteraksi dengannya.</p>
+        <div class="mt-6 flex flex-wrap gap-3"><button id="save-cookie" class="btn-primary border-0">Simpan preferensi</button><button id="reject-cookie" class="btn-secondary !border-[#9f4f35] !text-[#743625]">Tolak yang non-esensial</button></div>
+      </div>
+    </dialog>
+
+    <div id="cookie-banner" class="cookie-banner" hidden role="region" aria-label="Pilihan Kuki">
+      <div class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div><strong class="serif text-lg">Privasi terlebih dahulu.</strong><p class="mt-1 text-sm text-white/68">Analitik dinonaktifkan secara bawaan. Anda dapat mengizinkannya, menolak yang non-esensial, atau mengatur pilihan secara rinci.</p></div>
+        <div class="flex flex-wrap gap-2 sm:justify-end"><button id="banner-settings" class="btn-secondary text-sm">Atur</button><button id="banner-reject" class="btn-secondary text-sm">Tolak</button><button id="banner-accept" class="btn-primary border-0 text-sm">Izinkan analitik</button></div>
+      </div>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const STORAGE_KEY = 'puri-saren-cookie-v1';
+        const GA_ID = 'G-HXM22WWPKP';
+        const banner = document.getElementById('cookie-banner');
+        const cookieDialog = document.getElementById('cookie-dialog');
+        const analyticsInput = document.getElementById('cookie-analytics');
+        const preferencesInput = document.getElementById('cookie-preferences');
+
+        const readPrefs = () => {
+          try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; }
+        };
+        const writePrefs = (prefs) => {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+          if (banner) banner.hidden = true;
+          applyAnalytics(prefs.analytics === true);
+        };
+        const applyAnalytics = (enabled) => {
+          if (!enabled || document.querySelector('script[data-ga4]')) return;
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ window.dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', GA_ID, { anonymize_ip: true });
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+          script.dataset.ga4 = 'consented';
+          document.head.appendChild(script);
+        };
+        const syncDialog = (prefs) => {
+          if (analyticsInput) analyticsInput.checked = prefs?.analytics === true;
+          if (preferencesInput) preferencesInput.checked = prefs?.preferences === true;
+        };
+
+        const initial = readPrefs();
+        if (initial) { syncDialog(initial); applyAnalytics(initial.analytics === true); }
+        else if (banner) banner.hidden = false;
+
+        document.querySelectorAll('[data-dialog-open]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const id = button.getAttribute('data-dialog-open');
+            const dialog = id && document.getElementById(id);
+            if (dialog instanceof HTMLDialogElement) {
+              if (id === 'cookie-dialog') syncDialog(readPrefs());
+              dialog.showModal();
+            }
+          });
+        });
+        document.querySelectorAll('[data-dialog-close]').forEach((button) => button.addEventListener('click', () => button.closest('dialog')?.close()));
+        document.querySelectorAll('dialog').forEach((dialog) => dialog.addEventListener('click', (event) => {
+          if (event.target === dialog) dialog.close();
+        }));
+
+        document.getElementById('save-cookie')?.addEventListener('click', () => {
+          writePrefs({ necessary: true, analytics: !!analyticsInput?.checked, preferences: !!preferencesInput?.checked, marketing: false });
+          cookieDialog?.close();
+        });
+        const reject = () => writePrefs({ necessary: true, analytics: false, preferences: false, marketing: false });
+        document.getElementById('reject-cookie')?.addEventListener('click', () => { reject(); cookieDialog?.close(); });
+        document.getElementById('banner-reject')?.addEventListener('click', reject);
+        document.getElementById('banner-accept')?.addEventListener('click', () => writePrefs({ necessary: true, analytics: true, preferences: false, marketing: false }));
+        document.getElementById('banner-settings')?.addEventListener('click', () => { syncDialog(readPrefs()); cookieDialog?.showModal(); });
+      })();
+    </script>
+  </body>
+</html>

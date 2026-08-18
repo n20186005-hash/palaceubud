@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 128" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Panduan Puri Saren Ubud</title>
+  <desc id="desc">Gerbang puri Bali bergaya geometris dengan warna batu gelap dan emas hangat.</desc>
+  <g transform="translate(12 10)">
+    <rect x="0" y="0" width="108" height="108" rx="22" fill="#1d1915"/>
+    <path d="M17 92h74L82 80H70l8-12H66l7-11H61l5-11H55l-1-15-1 15h-11l5 11H35l7 11H30l8 12H26z" fill="#d7ad67"/>
+    <path d="M18 92h22V70l14-20 14 20v22h22v7H18z" fill="#9f4f35" opacity=".92"/>
+    <path d="M47 92V73l7-10 7 10v19z" fill="#1d1915"/>
+    <circle cx="54" cy="26" r="3" fill="#f2dfbb"/>
+  </g>
+  <g fill="#1d1915">
+    <text x="142" y="55" font-family="Georgia, 'Times New Roman', serif" font-size="39" font-weight="700" letter-spacing="1">Puri Saren Ubud</text>
+    <text x="144" y="86" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="3.2" fill="#9f4f35">PANDUAN WARISAN · GIANYAR</text>
+  </g>
+</svg>

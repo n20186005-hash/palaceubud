@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Puri Saren Ubud">
+  <rect width="128" height="128" rx="26" fill="#1d1915"/>
+  <path d="M20 108h88L97 94H84l9-14H79l8-13H73l7-13H66l-2-20-2 20H48l7 13H41l8 13H35l9 14H31z" fill="#d7ad67"/>
+  <path d="M21 108h27V82l16-24 16 24v26h27v8H21z" fill="#9f4f35"/>
+  <path d="M56 108V86l8-12 8 12v22z" fill="#1d1915"/>
+  <circle cx="64" cy="27" r="4" fill="#f2dfbb"/>
+</svg>
