@@ -2,9 +2,9 @@ lockfileVersion: '9.0'
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
-  onlyBuiltDependencies:
-    - esbuild
-    - workerd
+  allowBuilds:
+    esbuild: true
+    workerd: true
 importers:
   .:
     devDependencies:
