@@ -1,0 +1,128 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+<LegalLayout
+  title="Pengaturan Kuki"
+  eyebrow="Dokumen situs"
+  description="Kelola persetujuan kuki Anda untuk panduan Puri Saren Ubud: kuki wajib, preferensi, dan analitik."
+>
+  <p>Kuki adalah berkas teks kecil yang disimpan perangkat Anda. Halaman ini memungkinkan Anda mengatur persetujuan secara manual. Pilihan disimpan secara lokal di perangkat Anda melalui <code>puri-saren-cookie-v1</code>.</p>
+
+  <div class="mt-8 space-y-4">
+    <div class="rounded-2xl border border-[#e2d2ae] bg-white/70 p-5">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 class="serif text-xl font-bold text-[#201b17]">Kuki yang diperlukan</h2>
+          <p class="mt-1 text-sm text-[#554b42]">Selalu aktif. Diperlukan untuk mengingat pilihan persetujuan Anda dan menjaga keamanan situs.</p>
+        </div>
+        <span class="rounded-full bg-[#c26d2f]/15 px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#743625]">Selalu aktif</span>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-[#e2d2ae] bg-white/70 p-5">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 class="serif text-xl font-bold text-[#201b17]">Kuki preferensi</h2>
+          <p class="mt-1 text-sm text-[#554b42]">Menyimpan pilihan non-analitik seperti pengaturan tampilan atau layanan konten. Saat ini situs tidak menetapkan kuki preferensi.</p>
+        </div>
+        <label class="switch" aria-label="Aktifkan kuki preferensi">
+          <input id="cookie-preferences" type="checkbox" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-[#e2d2ae] bg-white/70 p-5">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 class="serif text-xl font-bold text-[#201b17]">Kuki analitik</h2>
+          <p class="mt-1 text-sm text-[#554b42]">Google Analytics, dimuat hanya setelah persetujuan Anda, untuk memahami penggunaan halaman secara agregat dan anonim.</p>
+        </div>
+        <label class="switch" aria-label="Aktifkan kuki analitik">
+          <input id="cookie-analytics" type="checkbox" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <p id="cookie-status" class="mt-4 rounded-xl bg-[#c26d2f]/10 px-4 py-3 text-sm font-semibold text-[#743625]" hidden>Preferensi kuki Anda telah disimpan.</p>
+
+  <div class="mt-8 flex flex-wrap items-center gap-3">
+    <button id="save-cookie" class="btn-primary text-sm" type="button">Simpan preferensi</button>
+    <button id="reject-cookie" class="btn-secondary text-sm" type="button">Tolak semua</button>
+    <a href="/" class="text-sm font-bold text-[#743625] no-underline hover:text-[#a14b2b]">Kembali ke beranda &rarr;</a>
+  </div>
+
+  <h2>Cara kerja pilihan Anda</h2>
+  <ul>
+    <li>Tanpa persetujuan analitik, Google Analytics tidak pernah dimuat dan tidak ada data yang dikirim.</li>
+    <li>Mengubah pilihan di sini akan langsung menyimpan keputusan baru pada perangkat Anda.</li>
+    <li>Anda juga dapat menghapus kuki melalui pengaturan peramban kapan saja.</li>
+  </ul>
+
+  <script is:inline>
+    (() => {
+      const STORAGE_KEY = 'puri-saren-cookie-v1';
+      const GA_ID = 'G-HXM22WWPKP';
+      const analyticsInput = document.getElementById('cookie-analytics');
+      const preferencesInput = document.getElementById('cookie-preferences');
+      const status = document.getElementById('cookie-status');
+
+      const readPrefs = () => {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        } catch {
+          return null;
+        }
+      };
+
+      const applyAnalytics = (enabled) => {
+        if (!enabled || document.querySelector('script[data-ga4]')) return;
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          window.dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA_ID, { anonymize_ip: true });
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+        script.dataset.ga4 = 'consented';
+        document.head.appendChild(script);
+      };
+
+      const writePrefs = (prefs) => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+        applyAnalytics(prefs.analytics === true);
+        if (status) {
+          status.hidden = false;
+          window.setTimeout(() => {
+            if (status) status.hidden = true;
+          }, 5000);
+        }
+      };
+
+      const initial = readPrefs();
+      if (analyticsInput) analyticsInput.checked = initial?.analytics === true;
+      if (preferencesInput) preferencesInput.checked = initial?.preferences === true;
+      if (initial) applyAnalytics(initial.analytics === true);
+
+      document.getElementById('save-cookie')?.addEventListener('click', () => {
+        writePrefs({
+          necessary: true,
+          preferences: preferencesInput?.checked === true,
+          analytics: analyticsInput?.checked === true,
+          marketing: false,
+        });
+      });
+
+      document.getElementById('reject-cookie')?.addEventListener('click', () => {
+        writePrefs({ necessary: true, preferences: false, analytics: false, marketing: false });
+        if (analyticsInput) analyticsInput.checked = false;
+        if (preferencesInput) preferencesInput.checked = false;
+      });
+    })();
+  </script>
+</LegalLayout>

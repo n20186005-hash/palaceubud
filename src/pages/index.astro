@@ -168,7 +168,7 @@ const faqSchema = {
 
     <main id="konten">
       <section id="atas" class="relative min-h-[880px] overflow-hidden bg-[#181411] text-white lg:min-h-[760px]">
-        <img src="/images/ubud-palace-entrance.webp" alt="Gerbang dan arsitektur Puri Saren Agung di pusat Ubud" width="1800" height="1200" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover" />
+        <img src="/images/ubud-palace-entrance.webp" alt="Gerbang dan arsitektur Puri Saren Agung di pusat Ubud" width="1800" height="1200" fetchPriority="high" class="absolute inset-0 h-full w-full object-cover" />
         <div class="hero-overlay hero-grid absolute inset-0"></div>
         <div class="relative mx-auto flex min-h-[880px] max-w-7xl items-end px-5 pb-14 pt-36 lg:min-h-[760px] lg:px-8 lg:pb-16">
           <div class="grid w-full gap-10 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
@@ -353,7 +353,7 @@ const faqSchema = {
 
       <section id="peta" class="bg-[#fffaf1] py-20 lg:py-28">
         <div class="mx-auto max-w-7xl px-5 lg:px-8">
-          <div class="mb-8 grid gap-5 md:grid-cols-[.85fr_1.15fr] md:items-end"><div><span class="eyebrow">Peta</span><h2 class="section-title mt-4">Titik pusat Ubud.</h2></div><p class="section-copy md:justify-self-end">Peta Google di bawah menggunakan antarmuka bahasa Indonesia. Memuat peta dapat menghubungkan browser Anda ke layanan Google; pengaturan privasi dijelaskan di kebijakan kami.</p></div>
+          <div class="mb-8 grid gap-5 md:grid-cols-[.85fr_1.15fr] md:items-end"><div><span class="eyebrow">Peta</span><h2 class="section-title mt-4">Titik pusat Ubud.</h2></div><p class="section-copy md:justify-self-end">Peta Google di bawah menggunakan antarmuka bahasa Indonesia. Memuat peta dapat menghubungkan browser Anda ke layanan Google; pengaturan privasi dijelaskan di <a class="font-bold text-[#743625] no-underline hover:text-[#a14b2b]" href="/privacy-policy/">kebijakan kami</a>.</p></div>
           <div class="overflow-hidden rounded-[28px] border border-black/10 bg-[#e6d4b5] shadow-2xl shadow-black/10">
             <iframe class="map-frame h-[520px] w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6818.031900126996!2d115.25940537693005!3d-8.506222586122313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23d6af37eb24b%3A0x4bcdf69a281c3f32!2sUbud%20Palace!5e1!3m2!1sid!2sid!4v1787020627984!5m2!1sid!2sid&hl=id" width="600" height="450" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Peta Puri Saren Agung, Ubud"></iframe>
           </div>
@@ -398,9 +398,9 @@ const faqSchema = {
             <div>
               <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ad67]">Kebijakan</p>
               <div class="mt-4 flex flex-col items-start gap-2 text-sm text-white/66">
-                <button class="source-link" data-dialog-open="privacy-dialog">Kebijakan Privasi</button>
-                <button class="source-link" data-dialog-open="terms-dialog">Ketentuan Layanan</button>
-                <button class="source-link" data-dialog-open="cookie-dialog">Pengaturan Kuki</button>
+                <a class="source-link" href="/privacy-policy/">Kebijakan Privasi</a>
+                <a class="source-link" href="/terms-of-service/">Ketentuan Layanan</a>
+                <a class="source-link" href="/cookie-settings/">Pengaturan Kuki</a>
               </div>
             </div>
             <div>
@@ -417,65 +417,10 @@ const faqSchema = {
       </div>
     </footer>
 
-    <dialog id="privacy-dialog" class="dialog-shell">
-      <div class="dialog-head"><div><p class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Dokumen situs</p><h2 class="serif text-2xl font-bold">Kebijakan Privasi</h2></div><button class="close-button" data-dialog-close aria-label="Tutup kebijakan privasi">×</button></div>
-      <div class="dialog-body">
-        <p><strong>Terakhir diperbarui: Agustus 2026</strong></p>
-        <p>Kami menerapkan prinsip pengumpulan data minimum. Situs ini tidak memiliki akun pengguna, basis data pelanggan, atau sistem pemesanan.</p>
-        <h3>Informasi yang kami kumpulkan</h3>
-        <ul><li>Data teknis penjelajahan yang diperlukan untuk penyajian dan keamanan situs, seperti alamat IP, jenis peramban, dan halaman yang diminta, sejauh tersedia melalui infrastruktur penyajian situs.</li><li>Kuki atau penyimpanan serupa yang dibutuhkan untuk menyimpan pilihan persetujuan Anda.</li><li>Data analitik hanya jika Anda mengaktifkan kategori analitik.</li><li>Informasi yang Anda berikan secara sukarela jika menghubungi pengelola melalui kanal kontak yang dipublikasikan pada domain situs.</li></ul>
-        <h3>Cara kami menggunakan informasi</h3>
-        <ul><li>Menyajikan dan meningkatkan isi serta pengalaman penggunaan.</li><li>Menganalisis pola lalu lintas secara agregat apabila persetujuan analitik diberikan.</li><li>Menanggapi permintaan yang dikirim secara sukarela.</li><li>Menjaga keamanan situs dan memenuhi kewajiban hukum yang berlaku.</li></ul>
-        <h3>Layanan pihak ketiga</h3>
-        <p>Halaman ini dapat menggunakan Google Maps untuk peta dan data lokasi. Google Analytics hanya dimuat setelah Anda memberikan persetujuan kategori analitik. Foto bersumber dari Unsplash berdasarkan Lisensi Unsplash, tetapi berkas utama disajikan dari situs ini dan tidak memerlukan skrip Unsplash.</p>
-        <h3>Dasar persetujuan dan penyimpanan</h3>
-        <p>Pilihan Kuki disimpan pada perangkat Anda agar situs dapat mengingat keputusan tersebut. Analitik non-esensial tidak diaktifkan secara bawaan. Anda dapat mengubah keputusan kapan saja melalui tautan “Pengaturan Kuki” di bagian kaki halaman.</p>
-        <h3>Hak Anda</h3>
-        <p>Jika GDPR atau peraturan perlindungan data lain berlaku terhadap pemrosesan Anda, hak yang relevan dapat mencakup akses, koreksi, penghapusan, pembatasan atau keberatan atas pemrosesan, serta pengajuan keluhan kepada otoritas pengawas yang berwenang. Permintaan dapat disampaikan melalui kanal kontak pengelola yang dipublikasikan pada domain situs.</p>
-        <h3>Tautan eksternal</h3>
-        <p>Ketika Anda membuka Google Maps atau situs sumber resmi, Anda meninggalkan situs ini dan kebijakan privasi pihak tersebut berlaku.</p>
-      </div>
-    </dialog>
-
-    <dialog id="terms-dialog" class="dialog-shell">
-      <div class="dialog-head"><div><p class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Dokumen situs</p><h2 class="serif text-2xl font-bold">Ketentuan Layanan</h2></div><button class="close-button" data-dialog-close aria-label="Tutup ketentuan layanan">×</button></div>
-      <div class="dialog-body">
-        <p><strong>Terakhir diperbarui: Agustus 2026</strong></p>
-        <p>Dengan mengakses dan menggunakan situs ini, Anda menyetujui ketentuan berikut.</p>
-        <h3>Penggunaan konten</h3>
-        <p>Semua isi disediakan untuk tujuan informasi dan edukasi perjalanan. Kami adalah proyek informasi wisata independen pihak ketiga dan tidak berafiliasi dengan Puri Saren Agung, keluarga kerajaan Ubud, Pemerintah Kabupaten Gianyar, instansi pemerintah, penjual tiket, atau operator komersial.</p>
-        <h3>Akurasi informasi</h3>
-        <p>Kami berupaya membandingkan sumber publik yang tepercaya, tetapi tidak dapat menjamin setiap informasi selalu lengkap atau mutakhir. Jam kunjungan, akses, harga, pertunjukan, kondisi jalan, transportasi, dan layanan dapat berubah. Verifikasi informasi penting melalui kanal resmi atau petugas di lokasi sebelum membuat keputusan perjalanan.</p>
-        <h3>Rekomendasi komersial</h3>
-        <p>Situs ini tidak menjual tiket, tidak menerima komisi pemesanan, dan tidak menyusun peringkat usaha. Bagian makanan, akomodasi, belanja, parkir, dan transportasi menjelaskan tipe layanan secara netral.</p>
-        <h3>Kekayaan intelektual</h3>
-        <p>Desain situs dan teks asli dilindungi hak cipta. Hak cipta foto tetap pada fotografer masing-masing dan digunakan sesuai lisensi sumber. Google Maps dan data Google digunakan sesuai ketentuan layanan Google.</p>
-        <h3>Batas tanggung jawab</h3>
-        <p>Situs disediakan “sebagaimana adanya” tanpa jaminan. Sejauh diizinkan hukum, pengelola tidak bertanggung jawab atas kerugian yang timbul karena ketergantungan pada informasi situs, perubahan kondisi lapangan, penutupan, keterlambatan, atau keputusan perjalanan pengguna.</p>
-        <h3>Keselamatan dan adat</h3>
-        <p>Pengunjung bertanggung jawab mematuhi rambu, arahan petugas, aturan adat, pembatas area, dan kondisi keselamatan setempat. Kegiatan upacara dapat memiliki prioritas atas aktivitas wisata.</p>
-      </div>
-    </dialog>
-
-    <dialog id="cookie-dialog" class="dialog-shell">
-      <div class="dialog-head"><div><p class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Preferensi privasi</p><h2 class="serif text-2xl font-bold">Pengaturan Kuki</h2></div><button class="close-button" data-dialog-close aria-label="Tutup pengaturan Kuki">×</button></div>
-      <div class="dialog-body">
-        <p><strong>Terakhir diperbarui: Agustus 2026</strong></p>
-        <p>Kami menggunakan penyimpanan minimum agar pilihan privasi dapat diingat. Analitik tidak aktif sampai Anda memberikan persetujuan.</p>
-        <div class="toggle-row"><div><strong>Kuki / penyimpanan yang diperlukan</strong><p class="mt-1 text-sm">Diperlukan untuk fungsi dasar dan menyimpan keputusan persetujuan.</p></div><label class="switch" aria-label="Penyimpanan yang diperlukan selalu aktif"><input type="checkbox" checked disabled /><span class="slider"></span></label></div>
-        <div class="toggle-row"><div><strong>Analitik — Google Analytics</strong><p class="mt-1 text-sm">Jika diaktifkan, membantu memahami penggunaan situs secara agregat. Google Analytics tidak dimuat sebelum persetujuan.</p></div><label class="switch" aria-label="Aktifkan analitik"><input id="cookie-analytics" type="checkbox" /><span class="slider"></span></label></div>
-        <div class="toggle-row"><div><strong>Preferensi</strong><p class="mt-1 text-sm">Dapat digunakan untuk mengingat pengaturan tampilan tambahan jika fitur tersebut ditambahkan. Saat ini tidak ada personalisasi profil.</p></div><label class="switch" aria-label="Aktifkan penyimpanan preferensi"><input id="cookie-preferences" type="checkbox" /><span class="slider"></span></label></div>
-        <div class="toggle-row"><div><strong>Pemasaran / iklan personal</strong><p class="mt-1 text-sm">Tidak digunakan oleh situs nirlaba ini. Tidak ada skrip iklan atau pelacakan pemasaran.</p></div><label class="switch" aria-label="Pemasaran tidak digunakan"><input type="checkbox" disabled /><span class="slider"></span></label></div>
-        <h3>Pengelolaan persetujuan</h3>
-        <p>Anda dapat mengubah pilihan kapan saja. Menonaktifkan analitik tidak menghalangi akses ke konten utama. Peta Google merupakan konten pihak ketiga yang dapat membuat koneksi ke layanan Google ketika bagian peta dimuat atau Anda berinteraksi dengannya.</p>
-        <div class="mt-6 flex flex-wrap gap-3"><button id="save-cookie" class="btn-primary border-0">Simpan preferensi</button><button id="reject-cookie" class="btn-secondary !border-[#9f4f35] !text-[#743625]">Tolak yang non-esensial</button></div>
-      </div>
-    </dialog>
-
     <div id="cookie-banner" class="cookie-banner" hidden role="region" aria-label="Pilihan Kuki">
       <div class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
         <div><strong class="serif text-lg">Privasi terlebih dahulu.</strong><p class="mt-1 text-sm text-white/68">Analitik dinonaktifkan secara bawaan. Anda dapat mengizinkannya, menolak yang non-esensial, atau mengatur pilihan secara rinci.</p></div>
-        <div class="flex flex-wrap gap-2 sm:justify-end"><button id="banner-settings" class="btn-secondary text-sm">Atur</button><button id="banner-reject" class="btn-secondary text-sm">Tolak</button><button id="banner-accept" class="btn-primary border-0 text-sm">Izinkan analitik</button></div>
+        <div class="flex flex-wrap gap-2 sm:justify-end"><a id="banner-settings" class="btn-secondary text-sm" href="/cookie-settings/">Atur</a><button id="banner-reject" class="btn-secondary text-sm">Tolak</button><button id="banner-accept" class="btn-primary border-0 text-sm">Izinkan analitik</button></div>
       </div>
     </div>
 
@@ -484,9 +429,6 @@ const faqSchema = {
         const STORAGE_KEY = 'puri-saren-cookie-v1';
         const GA_ID = 'G-HXM22WWPKP';
         const banner = document.getElementById('cookie-banner');
-        const cookieDialog = document.getElementById('cookie-dialog');
-        const analyticsInput = document.getElementById('cookie-analytics');
-        const preferencesInput = document.getElementById('cookie-preferences');
 
         const readPrefs = () => {
           try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; }
@@ -509,39 +451,14 @@ const faqSchema = {
           script.dataset.ga4 = 'consented';
           document.head.appendChild(script);
         };
-        const syncDialog = (prefs) => {
-          if (analyticsInput) analyticsInput.checked = prefs?.analytics === true;
-          if (preferencesInput) preferencesInput.checked = prefs?.preferences === true;
-        };
 
         const initial = readPrefs();
-        if (initial) { syncDialog(initial); applyAnalytics(initial.analytics === true); }
+        if (initial) applyAnalytics(initial.analytics === true);
         else if (banner) banner.hidden = false;
 
-        document.querySelectorAll('[data-dialog-open]').forEach((button) => {
-          button.addEventListener('click', () => {
-            const id = button.getAttribute('data-dialog-open');
-            const dialog = id && document.getElementById(id);
-            if (dialog instanceof HTMLDialogElement) {
-              if (id === 'cookie-dialog') syncDialog(readPrefs());
-              dialog.showModal();
-            }
-          });
-        });
-        document.querySelectorAll('[data-dialog-close]').forEach((button) => button.addEventListener('click', () => button.closest('dialog')?.close()));
-        document.querySelectorAll('dialog').forEach((dialog) => dialog.addEventListener('click', (event) => {
-          if (event.target === dialog) dialog.close();
-        }));
-
-        document.getElementById('save-cookie')?.addEventListener('click', () => {
-          writePrefs({ necessary: true, analytics: !!analyticsInput?.checked, preferences: !!preferencesInput?.checked, marketing: false });
-          cookieDialog?.close();
-        });
         const reject = () => writePrefs({ necessary: true, analytics: false, preferences: false, marketing: false });
-        document.getElementById('reject-cookie')?.addEventListener('click', () => { reject(); cookieDialog?.close(); });
         document.getElementById('banner-reject')?.addEventListener('click', reject);
         document.getElementById('banner-accept')?.addEventListener('click', () => writePrefs({ necessary: true, analytics: true, preferences: false, marketing: false }));
-        document.getElementById('banner-settings')?.addEventListener('click', () => { syncDialog(readPrefs()); cookieDialog?.showModal(); });
       })();
     </script>
   </body>

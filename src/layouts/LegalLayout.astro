@@ -1,0 +1,80 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  updated?: string;
+}
+
+const { title, description, eyebrow, updated = 'Agustus 2026' } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const imagePath = '/images/ubud-palace-entrance.webp';
+const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1d1915" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+  </head>
+  <body>
+    <header class="sticky top-0 z-30 border-b border-white/15 bg-[#1d1915] text-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 lg:px-8">
+        <a href="/#atas" aria-label="Puri Saren Ubud — kembali ke beranda" class="flex items-center gap-3 no-underline">
+          <img src="/favicon.svg" width="44" height="44" alt="" class="h-11 w-11 rounded-xl" />
+          <span class="leading-tight">
+            <strong class="serif block text-lg">Puri Saren Ubud</strong>
+            <span class="text-[.67rem] font-bold tracking-[.16em] text-white/70">PANDUAN WARISAN</span>
+          </span>
+        </a>
+        <a href="/" class="btn-secondary text-sm text-white">Kembali ke beranda</a>
+      </div>
+    </header>
+
+    <main class="bg-[#fffaf1]">
+      <div class="mx-auto max-w-3xl px-5 py-16 lg:py-20">
+        <p class="eyebrow">{eyebrow}</p>
+        <h1 class="serif mt-4 text-4xl font-bold tracking-tight lg:text-5xl">{title}</h1>
+        <p class="mt-3 text-sm font-bold uppercase tracking-[.12em] text-[#743625]">Terakhir diperbarui: {updated}</p>
+        <div class="doc-prose mt-8">
+          <slot />
+        </div>
+      </div>
+    </main>
+
+    <footer class="border-t border-white/10 bg-[#171310] py-10 text-[#eee4d4]">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <p class="text-sm text-white/55">© 2026 Panduan Warisan Puri Saren Ubud. Hak cipta dilindungi.</p>
+          <nav class="flex flex-wrap gap-4 text-sm text-white/70" aria-label="Kebijakan situs">
+            <a href="/privacy-policy/" class="no-underline hover:text-[#e7c88f]">Kebijakan Privasi</a>
+            <a href="/terms-of-service/" class="no-underline hover:text-[#e7c88f]">Ketentuan Layanan</a>
+            <a href="/cookie-settings/" class="no-underline hover:text-[#e7c88f]">Pengaturan Kuki</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
