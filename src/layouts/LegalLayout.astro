@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { SITE_NAME } from '../data/site';
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const { title, description, eyebrow, updated = 'Agustus 2026' } = Astro.props;
+const pageTitle = `${title} | ${SITE_NAME}`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const imagePath = '/images/ubud-palace-entrance.webp';
 const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
@@ -19,7 +21,7 @@ const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1d1915" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
@@ -30,12 +32,13 @@ const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="id_ID" />
-    <meta property="og:title" content={title} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
   </head>

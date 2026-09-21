@@ -3,8 +3,9 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // Satu-satunya lokasi untuk mengisi domain produksi.
-// Biarkan kosong sebelum domain tersedia; build tetap berjalan tanpa URL palsu.
-const site = '';
+// Domain sudah tersedia: mengisi nilai ini mengaktifkan integrasi sitemap,
+// canonical, serta URL absolut Open Graph/Twitter.
+const site = 'https://palaceubud.com';
 
 export default defineConfig({
   site: site || undefined,

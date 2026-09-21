@@ -1,8 +1,9 @@
 ---
 import '../styles/global.css';
+import { SITE_NAME } from '../data/site';
 
-const title = 'Puri Saren Agung Ubud — Panduan Warisan, Sejarah & Kunjungan';
-const description = 'Panduan independen Puri Saren Agung di Ubud: sejarah, arsitektur, jam kunjung, biaya, transportasi, fasilitas, etika, peta, dan tanya jawab.';
+const title = SITE_NAME;
+const description = 'Panduan independen Puri Saren Agung (Istana Ubud): sejarah, arsitektur, jam kunjung 07.00–17.00, area siang umumnya gratis, pertunjukan tari malam & tiket, transportasi, fasilitas, dan tanya jawab.';
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const imagePath = '/images/ubud-palace-entrance.webp';
 const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
@@ -72,7 +73,7 @@ const attractionSchema = {
   '@context': 'https://schema.org',
   '@type': ['TouristAttraction', 'LocalBusiness'],
   name: 'Puri Saren Agung (Ubud Palace)',
-  alternateName: 'Istana Ubud',
+  alternateName: ['Istana Ubud', 'Ubud Palace', 'Istana Kerajaan Ubud'],
   description,
   ...(canonical ? { url: canonical } : {}),
   ...(Astro.site ? { image: new URL(imagePath, Astro.site).href } : {}),
@@ -131,6 +132,7 @@ const faqSchema = {
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
