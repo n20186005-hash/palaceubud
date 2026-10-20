@@ -46,7 +46,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     </div>
   </div>
 
-  <p id="cookie-status" class="mt-4 rounded-xl bg-[#c26d2f]/10 px-4 py-3 text-sm font-semibold text-[#743625]" hidden>Preferensi kuki Anda telah disimpan.</p>
+  <p id="cookie-status" role="status" aria-live="polite" class="mt-4 rounded-xl bg-[#c26d2f]/10 px-4 py-3 text-sm font-semibold text-[#743625]" hidden>Preferensi kuki Anda telah disimpan.</p>
 
   <div class="mt-8 flex flex-wrap items-center gap-3">
     <button id="save-cookie" class="btn-primary text-sm" type="button">Simpan preferensi</button>
@@ -56,8 +56,8 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 
   <h2>Cara kerja pilihan Anda</h2>
   <ul>
-    <li>Tanpa persetujuan analitik, Google Analytics tidak pernah dimuat dan tidak ada data yang dikirim.</li>
-    <li>Mengubah pilihan di sini akan langsung menyimpan keputusan baru pada perangkat Anda.</li>
+    <li>Google Analytics hanya diaktifkan setelah persetujuan analitik. Menolak menonaktifkan pengukuran berikutnya pada halaman ini.</li>
+    <li>Situs mencoba menyimpan pilihan pada perangkat Anda dan memberi tahu jika penyimpanan tidak tersedia.</li>
     <li>Anda juga dapat menghapus kuki melalui pengaturan peramban kapan saja.</li>
   </ul>
 
@@ -78,7 +78,8 @@ import LegalLayout from '../layouts/LegalLayout.astro';
       };
 
       const applyAnalytics = (enabled) => {
-        if (!enabled || document.querySelector('script[data-ga4]')) return;
+        window['ga-disable-' + GA_ID] = !enabled;
+          if (!enabled || document.querySelector('script[data-ga4]')) return;
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           window.dataLayer.push(arguments);
@@ -94,20 +95,17 @@ import LegalLayout from '../layouts/LegalLayout.astro';
       };
 
       const writePrefs = (prefs) => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-        applyAnalytics(prefs.analytics === true);
-        if (status) {
-          status.hidden = false;
-          window.setTimeout(() => {
-            if (status) status.hidden = true;
-          }, 5000);
-        }
-      };
+          applyAnalytics(prefs.analytics === true);
+          let saved = false;
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs)); saved = true; } catch {}
+          const message = saved ? 'Preferensi kuki Anda telah disimpan.' : 'Pilihan berlaku untuk halaman ini. Peramban tidak dapat menyimpannya untuk kunjungan berikutnya.';
+          if (status) { status.hidden = false; status.textContent = message; }
+        };
 
       const initial = readPrefs();
       if (analyticsInput) analyticsInput.checked = initial?.analytics === true;
       if (preferencesInput) preferencesInput.checked = initial?.preferences === true;
-      if (initial) applyAnalytics(initial.analytics === true);
+      applyAnalytics(initial?.analytics === true);
 
       document.getElementById('save-cookie')?.addEventListener('click', () => {
         writePrefs({
