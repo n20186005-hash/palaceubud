@@ -2,8 +2,8 @@
 import '../styles/global.css';
 import { SITE_NAME } from '../data/site';
 
-const title = SITE_NAME;
-const description = 'Panduan independen Puri Saren Agung (Istana Ubud): sejarah, arsitektur, jam kunjung 07.00–17.00, area siang umumnya gratis, pertunjukan tari malam & tiket, transportasi, fasilitas, dan tanya jawab.';
+const title = 'Puri Saren Agung / Ubud Palace: Lokasi, Jam & Tiket';
+const description = 'Panduan independen Puri Saren Agung (Ubud Palace) di Jl. Raya Ubud No.8: jam peta 07.00–17.00, akses area publik, tiket dan pertunjukan tari yang perlu dikonfirmasi.';
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const imagePath = '/images/ubud-palace-entrance.webp';
 const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
@@ -11,9 +11,9 @@ const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
 const quickFacts = [
   ['Nama lokal', 'Puri Saren Agung'],
   ['Lokasi', 'Jl. Raya Ubud No.8, Ubud, Gianyar, Bali 80571'],
-  ['Jam kunjungan peta', 'Setiap hari, 07.00–17.00'],
-  ['Area publik siang', 'Umumnya tanpa tiket masuk'],
-  ['Waktu kunjungan', '30–60 menit untuk kompleks publik'],
+  ['Jam kunjungan peta', '07.00–17.00 setiap hari; Maps 19 Oktober 2026'],
+  ['Tiket siang', 'Maps: gratis, diperiksa 19 Oktober 2026'],
+  ['Akses', 'Hanya area yang diizinkan petugas'],
   ['Karakter', 'Puri kerajaan yang masih hidup dan ruang budaya']
 ];
 
@@ -24,14 +24,14 @@ const timeline = [
     body: 'Puri Saren Agung berkembang sebagai kediaman keluarga kerajaan Ubud dan pusat kekuasaan lokal. Karena itu, kompleks ini bukan sekadar bangunan tua: fungsi kediaman, adat, dan representasi kerajaan tetap penting dalam cara tempat ini dipahami.'
   },
   {
-    label: 'Abad ke-20',
+    label: 'Seni di Ubud',
     title: 'Ubud tumbuh sebagai ruang pertemuan seni',
     body: 'Ubud makin dikenal sebagai pusat seni Bali. Lingkungan puri ikut menjadi bagian dari ekosistem seni pertunjukan, gamelan, upacara, dan patronase budaya yang membentuk citra Ubud hingga sekarang.'
   },
   {
     label: 'Kehidupan budaya',
     title: 'Tari dan tabuh sebagai tradisi berkelanjutan',
-    body: 'Pemerintah Kabupaten Gianyar mencatat Puri Saren Ubud secara rutin menghadirkan tari dan tabuh, dengan penekanan pada pelestarian seni pertunjukan dan fungsi ritual adat.'
+    body: 'Dokumentasi Pemerintah Kabupaten Gianyar menggambarkan peran Puri Saren dalam seni dan kebudayaan Ubud. Catatan tersebut bukan jadwal pertunjukan terkini.'
   },
   {
     label: 'Hari ini',
@@ -59,10 +59,10 @@ const facilities = [
 ];
 
 const faq = [
-  ['Apakah masuk Puri Saren Agung gratis?', 'Akses ke area publik untuk kunjungan siang umumnya tidak dipungut tiket masuk. Pertunjukan budaya malam merupakan kegiatan terpisah dan dapat memerlukan tiket. Kebijakan dapat berubah, jadi periksa informasi di lokasi pada hari kunjungan.'],
-  ['Berapa lama waktu yang dibutuhkan?', 'Sekitar 30–60 menit cukup untuk mengamati area publik dengan tenang. Jika digabung dengan kawasan budaya pusat Ubud, siapkan sekitar 2–3 jam.'],
+  ['Apakah masuk Puri Saren Agung gratis?', 'Google Maps yang diperiksa pada 19 Oktober 2026 menampilkan tiket umum siang gratis. Ini hanya cuplikan listing, bukan jaminan semua area dapat dimasuki, dan tidak berlaku untuk pertunjukan. Konfirmasikan ketentuan di lokasi; harga serta jadwal pertunjukan belum kami verifikasi.'],
+  ['Kapan jam buka Ubud Palace?', 'Listing Google Maps yang diperiksa 19 Oktober 2026 mencantumkan 07.00–17.00 setiap hari. Jam tersebut bukan jadwal pertunjukan malam dan tidak menjamin semua bagian istana terbuka. Konfirmasikan akses dengan petugas pada hari kunjungan.'],
   ['Apakah puri masih ditempati keluarga kerajaan?', 'Ya, sumber resmi pariwisata Indonesia menyebut sebagian kompleks masih digunakan keluarga kerajaan. Karena itu tidak semua bagian terbuka untuk umum.'],
-  ['Apakah ada pertunjukan tari setiap malam?', 'Pertunjukan tari tradisional sering diselenggarakan pada malam hari, tetapi jadwal, jenis pertunjukan, lokasi pelataran, dan tiket dapat berubah. Verifikasi jadwal pada hari kunjungan.'],
+  ['Apakah ada pertunjukan tari setiap malam?', 'Indonesia.travel menyebut pertunjukan tari tradisional pada malam hari. Sumber ini tidak memastikan pertunjukan setiap malam. Konfirmasikan tanggal, waktu mulai, lokasi pertunjukan dan harga tiket kepada penyelenggara sebelum membeli.'],
   ['Apa pakaian yang tepat?', 'Gunakan pakaian sopan dan nyaman. Jika ada upacara atau area yang meminta ketentuan khusus, ikuti arahan petugas dan masyarakat setempat. Jangan memindahkan sesajen.'],
   ['Apakah mudah dikunjungi dengan kursi roda?', 'Tidak sepenuhnya. Beberapa permukaan tidak rata, terdapat ambang dan anak tangga, dan ruang sirkulasi dapat sempit. Pengunjung dengan kebutuhan mobilitas sebaiknya datang dengan pendamping dan menilai rute di tempat.'],
   ['Apakah tersedia parkir di depan puri?', 'Area pusat Ubud sangat padat dan parkir tepat di gerbang tidak dapat dijamin. Lebih aman merencanakan parkir umum resmi, turun di titik aman, atau berjalan dari akomodasi pusat kota.'],
@@ -71,7 +71,7 @@ const faq = [
 
 const attractionSchema = {
   '@context': 'https://schema.org',
-  '@type': ['TouristAttraction', 'LocalBusiness'],
+  '@type': 'TouristAttraction',
   name: 'Puri Saren Agung (Ubud Palace)',
   alternateName: ['Istana Ubud', 'Ubud Palace', 'Istana Kerajaan Ubud'],
   description,
@@ -87,23 +87,10 @@ const attractionSchema = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: -8.506222586122313,
-    longitude: 115.25940537693005
-  },
-  openingHoursSpecification: [{
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
-    opens: '07:00',
-    closes: '17:00'
-  }],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.3',
-    reviewCount: '20020',
-    bestRating: '5'
-  },
-  priceRange: 'Area publik siang umumnya gratis; pertunjukan budaya dapat berbayar',
-  isAccessibleForFree: true
+    latitude: -8.5065977,
+    longitude: 115.2625884
+  }
+
 };
 
 const faqSchema = {
@@ -120,7 +107,7 @@ const faqSchema = {
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1d1915" />
@@ -141,8 +128,8 @@ const faqSchema = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <script type="application/ld+json" set:html={JSON.stringify(attractionSchema)}></script>
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(attractionSchema)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   </head>
   <body>
     <a href="#konten" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">Lewati ke konten utama</a>
@@ -156,7 +143,7 @@ const faqSchema = {
             <span class="text-[.67rem] font-bold tracking-[.16em] text-white/70">PANDUAN WARISAN</span>
           </span>
         </a>
-        <nav aria-label="Navigasi utama" class="hidden items-center gap-6 text-sm font-semibold lg:flex">
+        <nav aria-label="Navigasi utama" class="main-nav flex flex-wrap items-center gap-6 text-sm font-semibold">
           <a href="#sejarah" class="no-underline hover:text-[#e7c88f]">Sejarah</a>
           <a href="#kunjungan" class="no-underline hover:text-[#e7c88f]">Kunjungan</a>
           <a href="#transportasi" class="no-underline hover:text-[#e7c88f]">Transportasi</a>
@@ -170,7 +157,7 @@ const faqSchema = {
 
     <main id="konten">
       <section id="atas" class="relative min-h-[880px] overflow-hidden bg-[#181411] text-white lg:min-h-[760px]">
-        <img src="/images/ubud-palace-entrance.webp" alt="Gerbang dan arsitektur Puri Saren Agung di pusat Ubud" width="1800" height="1200" fetchPriority="high" class="absolute inset-0 h-full w-full object-cover" />
+        <img src="/images/ubud-palace-entrance.webp" alt="Gerbang dan arsitektur Puri Saren Agung di pusat Ubud" width="1800" height="1200" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover" />
         <div class="hero-overlay hero-grid absolute inset-0"></div>
         <div class="relative mx-auto flex min-h-[880px] max-w-7xl items-end px-5 pb-14 pt-36 lg:min-h-[760px] lg:px-8 lg:pb-16">
           <div class="grid w-full gap-10 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
@@ -180,7 +167,7 @@ const faqSchema = {
                 <span class="tag !bg-white/12 !text-[#f2dfbb]">Puri kerajaan & ruang budaya</span>
               </div>
               <p class="mb-4 text-sm font-bold uppercase tracking-[.2em] text-[#e7c88f]">Panduan independen · nonkomersial</p>
-              <h1 class="serif max-w-4xl text-[clamp(3.8rem,9vw,8rem)] leading-[.82] tracking-[-.055em]">Puri Saren<br /><span class="text-[#e7c88f]">Agung.</span></h1>
+              <h1 class="serif max-w-4xl text-[clamp(3.8rem,9vw,8rem)] leading-[.82] tracking-[-.055em]">Puri Saren<br /><span class="text-[#e7c88f]">Agung.</span><span class="mt-5 block font-sans text-2xl leading-tight tracking-normal">Ubud Palace · Bali</span></h1>
               <p class="mt-7 max-w-2xl text-lg leading-8 text-white/82 lg:text-xl">Di jantung Ubud, istana ini masih dibaca sebagai ruang hidup: kediaman kerajaan, panggung seni, halaman upacara, dan arsip arsitektur Bali yang dapat dipahami melalui detail, tata ruang, dan etika berkunjung.</p>
               <div class="mt-8 flex flex-wrap gap-3">
                 <a class="btn-primary" href="#kunjungan">Rencanakan kunjungan <span aria-hidden="true">↓</span></a>
@@ -194,15 +181,15 @@ const faqSchema = {
                   <p class="text-xs font-bold uppercase tracking-[.16em] text-white/55">Ringkas</p>
                   <p class="serif mt-1 text-2xl">Sebelum masuk</p>
                 </div>
-                <div class="rounded-full border border-[#e7c88f]/35 px-3 py-1 text-sm font-bold text-[#e7c88f]">4,3 / 5</div>
+                <div class="rounded-full border border-[#e7c88f]/35 px-3 py-1 text-sm font-bold text-[#e7c88f]">4,3 / 5 · 20.749 ulasan</div>
               </div>
               <dl class="mt-5 grid gap-5 text-sm sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 <div><dt class="text-white/50">Jam peta</dt><dd class="mt-1 font-bold">07.00–17.00</dd></div>
-                <div><dt class="text-white/50">Area siang</dt><dd class="mt-1 font-bold">Umumnya gratis</dd></div>
-                <div><dt class="text-white/50">Durasi</dt><dd class="mt-1 font-bold">30–60 menit</dd></div>
+                <div><dt class="text-white/50">Area siang</dt><dd class="mt-1 font-bold">Maps: gratis*</dd></div>
+                <div><dt class="text-white/50">Durasi</dt><dd class="mt-1 font-bold">Sesuai akses</dd></div>
                 <div><dt class="text-white/50">Pakaian</dt><dd class="mt-1 font-bold">Sopan & nyaman</dd></div>
               </dl>
-              <p class="mt-6 rounded-2xl bg-white/8 p-4 text-sm leading-6 text-white/70"><strong class="text-white">Penting:</strong> jam kunjungan siang dan jadwal pertunjukan malam adalah dua hal berbeda. Kegiatan adat dapat mengubah akses tanpa pemberitahuan jauh hari.</p>
+              <p class="mt-6 rounded-2xl bg-white/8 p-4 text-sm leading-6 text-white/70"><strong class="text-white">Diperiksa 19 Oktober 2026:</strong> *Gratis adalah cuplikan tiket umum siang di Maps, bukan tiket pertunjukan.  jam kunjungan siang dan jadwal pertunjukan malam adalah dua hal berbeda. Kegiatan adat dapat mengubah akses tanpa pemberitahuan jauh hari.</p>
             </aside>
           </div>
         </div>
@@ -267,10 +254,10 @@ const faqSchema = {
               <p class="section-copy mt-6">Puri Saren Agung cocok sebagai kunjungan singkat yang diperdalam lewat observasi. Nilainya bukan pada luas area publik, melainkan pada konteks kerajaan, arsitektur, dan budaya pertunjukan.</p>
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
-              <article class="card rounded-[22px] p-6"><span class="tag">Jam</span><h3 class="serif mt-4 text-2xl font-bold">07.00–17.00</h3><p class="mt-2 text-sm text-[#65584c]">Jam yang ditampilkan Google Maps saat panduan disusun. Akses dapat menyesuaikan kegiatan adat.</p></article>
-              <article class="card rounded-[22px] p-6"><span class="tag">Biaya</span><h3 class="serif mt-4 text-2xl font-bold">Siang: umumnya gratis</h3><p class="mt-2 text-sm text-[#65584c]">Pertunjukan malam berbayar dan terpisah; harga tidak kami bekukan karena dapat berubah.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Jam</span><h3 class="serif mt-4 text-2xl font-bold">07.00–17.00</h3><p class="mt-2 text-sm text-[#65584c]">Jam listing Google Maps diperiksa 19 Oktober 2026, bukan jadwal pertunjukan malam. Akses dapat menyesuaikan kegiatan adat.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Biaya</span><h3 class="serif mt-4 text-2xl font-bold">Siang: cek ketentuan</h3><p class="mt-2 text-sm text-[#65584c]">Maps pada 19 Oktober 2026 menampilkan tiket umum siang gratis. Tidak mencakup pertunjukan atau menjamin seluruh area dapat diakses; konfirmasikan di lokasi.</p></article>
               <article class="card rounded-[22px] p-6"><span class="tag">Waktu terbaik</span><h3 class="serif mt-4 text-2xl font-bold">Pagi setelah buka</h3><p class="mt-2 text-sm text-[#65584c]">Lebih nyaman untuk mengamati detail dan mengurangi paparan panas. Pusat Ubud semakin padat menjelang siang.</p></article>
-              <article class="card rounded-[22px] p-6"><span class="tag">Durasi</span><h3 class="serif mt-4 text-2xl font-bold">30–60 menit</h3><p class="mt-2 text-sm text-[#65584c]">Tambahkan 2–3 jam jika berjalan di klaster budaya pusat Ubud.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Durasi</span><h3 class="serif mt-4 text-2xl font-bold">Sesuai akses</h3><p class="mt-2 text-sm text-[#65584c]">Sesuaikan durasi dengan area yang diizinkan, kegiatan adat dan kebutuhan mobilitas.</p></article>
             </div>
           </div>
 
@@ -357,9 +344,9 @@ const faqSchema = {
         <div class="mx-auto max-w-7xl px-5 lg:px-8">
           <div class="mb-8 grid gap-5 md:grid-cols-[.85fr_1.15fr] md:items-end"><div><span class="eyebrow">Peta</span><h2 class="section-title mt-4">Titik pusat Ubud.</h2></div><p class="section-copy md:justify-self-end">Peta Google di bawah menggunakan antarmuka bahasa Indonesia. Memuat peta dapat menghubungkan browser Anda ke layanan Google; pengaturan privasi dijelaskan di <a class="font-bold text-[#743625] no-underline hover:text-[#a14b2b]" href="/privacy-policy/">kebijakan kami</a>.</p></div>
           <div class="overflow-hidden rounded-[28px] border border-black/10 bg-[#e6d4b5] shadow-2xl shadow-black/10">
-            <iframe class="map-frame h-[520px] w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6818.031900126996!2d115.25940537693005!3d-8.506222586122313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23d6af37eb24b%3A0x4bcdf69a281c3f32!2sUbud%20Palace!5e1!3m2!1sid!2sid!4v1787020627984!5m2!1sid!2sid&hl=id" width="600" height="450" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Peta Puri Saren Agung, Ubud"></iframe>
+            <iframe class="map-frame h-[520px] w-full" src="https://www.google.com/maps?q=-8.5065977,115.2625884&amp;output=embed" width="600" height="450" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Peta Puri Saren Agung, Ubud"></iframe>
           </div>
-          <div class="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-[#65584c]"><span>Koordinat peta: −8.506223, 115.259405</span><a class="source-link font-bold" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer">Buka petunjuk arah ↗</a></div>
+          <div class="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-[#65584c]"><span>Koordinat peta: −8.5065977, 115.2625884</span><a class="source-link font-bold" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer">Buka petunjuk arah ↗</a></div>
         </div>
       </section>
 
@@ -378,11 +365,11 @@ const faqSchema = {
             <div><span class="eyebrow">Sumber & metodologi</span><h2 class="serif mt-4 text-4xl font-bold tracking-tight">Transparan tentang asal informasi.</h2><p class="mt-5 text-[#65584c]">Kami memprioritaskan sumber pemerintah dan pariwisata resmi, kemudian membandingkannya dengan data peta untuk kebutuhan operasional. Tidak ada peringkat komersial atau komisi pemesanan.</p></div>
             <div class="grid gap-3 sm:grid-cols-2">
               <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://diparda.gianyarkab.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Pemerintah daerah</span><strong class="mt-2 block">Dinas Pariwisata Kabupaten Gianyar</strong><span class="mt-1 block text-sm text-[#65584c]">Konteks pariwisata dan kebudayaan Kabupaten Gianyar.</span></a>
-              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://gianyarkab.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Pemerintah daerah</span><strong class="mt-2 block">Pemerintah Kabupaten Gianyar</strong><span class="mt-1 block text-sm text-[#65584c]">Informasi publik dan dokumentasi kegiatan budaya.</span></a>
-              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://www.indonesia.travel/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Nasional</span><strong class="mt-2 block">Indonesia.travel / Kementerian Pariwisata</strong><span class="mt-1 block text-sm text-[#65584c]">Konteks destinasi, keluarga kerajaan, dan seni pertunjukan.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://gianyarkab.go.id/informasi-publik/berita/pariwisata" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Pemerintah daerah</span><strong class="mt-2 block">Pemerintah Kabupaten Gianyar</strong><span class="mt-1 block text-sm text-[#65584c]">Informasi publik dan dokumentasi kegiatan budaya.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://www.indonesia.travel/id/en/destination/bali-nusa-tenggara/bali/istana-ubud" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Nasional</span><strong class="mt-2 block">Indonesia.travel / Kementerian Pariwisata</strong><span class="mt-1 block text-sm text-[#65584c]">Konteks destinasi, keluarga kerajaan, dan seni pertunjukan.</span></a>
               <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://dishub.baliprov.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Transportasi</span><strong class="mt-2 block">Dinas Perhubungan Provinsi Bali</strong><span class="mt-1 block text-sm text-[#65584c]">Rujukan perubahan jaringan angkutan dan mobilitas Ubud.</span></a>
               <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://bali-airport.com/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Bandara</span><strong class="mt-2 block">Bandara Internasional I Gusti Ngurah Rai</strong><span class="mt-1 block text-sm text-[#65584c]">Informasi gerbang udara dan layanan bandara.</span></a>
-              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Data lokasi</span><strong class="mt-2 block">Google Maps</strong><span class="mt-1 block text-sm text-[#65584c]">Alamat, koordinat, jam operasional yang ditampilkan, dan agregat ulasan.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Data lokasi</span><strong class="mt-2 block">Google Maps</strong><span class="mt-1 block text-sm text-[#65584c]">Diperiksa 19 Oktober 2026: alamat, pin, jam 07.00–17.00, rating 4,3 dari 20.749 ulasan. Data listing dapat berubah; bukan konfirmasi pertunjukan.</span></a>
             </div>
           </div>
         </div>
@@ -407,7 +394,7 @@ const faqSchema = {
             </div>
             <div>
               <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ad67]">Pernyataan independensi</p>
-              <p class="mt-4 text-sm leading-6 text-white/58">Situs ini adalah proyek panduan informasi pengunjung independen dan nirlaba, tanpa hubungan afiliasi dengan instansi pemerintah, keluarga kerajaan, pengelola destinasi, atau organisasi resmi.</p>
+              <p class="mt-4 text-sm leading-6 text-white/58">Situs ini adalah proyek panduan informasi pengunjung independen, tanpa hubungan afiliasi dengan instansi pemerintah, keluarga kerajaan, pengelola destinasi, atau organisasi resmi.</p>
             </div>
           </div>
         </div>
@@ -424,7 +411,7 @@ const faqSchema = {
         <div><strong class="serif text-lg">Privasi terlebih dahulu.</strong><p class="mt-1 text-sm text-white/68">Analitik dinonaktifkan secara bawaan. Anda dapat mengizinkannya, menolak yang non-esensial, atau mengatur pilihan secara rinci.</p></div>
         <div class="flex flex-wrap gap-2 sm:justify-end"><a id="banner-settings" class="btn-secondary text-sm" href="/cookie-settings/">Atur</a><button id="banner-reject" class="btn-secondary text-sm">Tolak</button><button id="banner-accept" class="btn-primary border-0 text-sm">Izinkan analitik</button></div>
       </div>
-    </div>
+    <p id="banner-status" role="status" aria-live="polite"></p></div>
 
     <script is:inline>
       (() => {
@@ -436,11 +423,16 @@ const faqSchema = {
           try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; }
         };
         const writePrefs = (prefs) => {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-          if (banner) banner.hidden = true;
           applyAnalytics(prefs.analytics === true);
+          let saved = false;
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs)); saved = true; } catch {}
+          const message = saved ? 'Preferensi kuki Anda telah disimpan.' : 'Pilihan berlaku untuk halaman ini. Peramban tidak dapat menyimpannya untuk kunjungan berikutnya.';
+          if (banner) banner.hidden = saved;
+          const status = document.getElementById('banner-status');
+          if (status) status.textContent = saved ? '' : message;
         };
         const applyAnalytics = (enabled) => {
+          window['ga-disable-' + GA_ID] = !enabled;
           if (!enabled || document.querySelector('script[data-ga4]')) return;
           window.dataLayer = window.dataLayer || [];
           function gtag(){ window.dataLayer.push(arguments); }
@@ -455,8 +447,8 @@ const faqSchema = {
         };
 
         const initial = readPrefs();
-        if (initial) applyAnalytics(initial.analytics === true);
-        else if (banner) banner.hidden = false;
+        applyAnalytics(initial?.analytics === true);
+        if (!initial && banner) banner.hidden = false;
 
         const reject = () => writePrefs({ necessary: true, analytics: false, preferences: false, marketing: false });
         document.getElementById('banner-reject')?.addEventListener('click', reject);
