@@ -1,0 +1,17 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import TopicPage from '../../components/TopicPage.astro';
+import { TOPICS } from '../../data/topics';
+
+export function getStaticPaths() {
+  return TOPICS.map((topic) => ({
+    params: { topic: topic.slug },
+    props: { lang: 'en' as const, topic }
+  }));
+}
+
+const { lang, topic } = Astro.props;
+---
+<TopicLayout lang={lang} topic={topic}>
+  <TopicPage lang={lang} topic={topic} />
+</TopicLayout>

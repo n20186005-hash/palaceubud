@@ -1,0 +1,237 @@
+---
+import '../styles/global.css';
+import { SITE_NAME, SITE_NAME_EN } from '../data/site';
+import type { Topic, Lang } from '../data/topics';
+
+interface Props {
+  lang: Lang;
+  topic: Topic;
+}
+
+const { lang, topic } = Astro.props;
+const isEn = lang === 'en';
+const siteName = isEn ? SITE_NAME_EN : SITE_NAME;
+const content = lang === 'en' ? topic.en : topic.id;
+const groupLabel = lang === 'en' ? 'Around Ubud' : 'Sekitar Ubud';
+
+const site = Astro.site ?? new URL('https://palaceubud.com');
+const idUrl = new URL(`${topic.slug}/`, site).href;
+const enUrl = new URL(`en/${topic.slug}/`, site).href;
+const canonical = lang === 'en' ? enUrl : idUrl;
+const otherUrl = lang === 'en' ? idUrl : enUrl;
+
+const title = `${content.title} | ${siteName}`;
+const description = content.description;
+const imagePath = '/images/ubud-palace-entrance.webp';
+const ogImage = new URL(imagePath, site).href;
+const localeHref = lang === 'en' ? 'en_US' : 'id_ID';
+const htmlLang = lang === 'en' ? 'en' : 'id';
+const homeUrl = lang === 'en' ? '/en/' : '/';
+
+const breadcrumbItems = [
+  { name: lang === 'en' ? 'Home' : 'Beranda', url: homeUrl },
+  { name: content.h1, url: canonical }
+];
+
+const mainId = isEn ? 'content' : 'konten';
+const skipLink = isEn ? 'Skip to content' : 'Lewati ke konten utama';
+const navAria = isEn ? 'Language and home' : 'Bahasa dan beranda';
+const tagline = isEn ? 'HERITAGE GUIDE' : 'PANDUAN WARISAN';
+const footerDesc = isEn
+  ? 'A nonprofit visitor-guide project that helps visitors understand the context of a place before they come.'
+  : 'Proyek panduan wisata nirlaba yang membantu pengunjung memahami konteks tempat sebelum datang.';
+const policyHeading = isEn ? 'Policies' : 'Kebijakan';
+const policyLinks = isEn
+  ? { privacy: 'Privacy Policy', terms: 'Terms of Service', cookies: 'Cookie Settings', privacyUrl: '/en/privacy-policy/', termsUrl: '/en/terms-of-service/', cookiesUrl: '/en/cookie-settings/' }
+  : { privacy: 'Kebijakan Privasi', terms: 'Ketentuan Layanan', cookies: 'Pengaturan Kuki', privacyUrl: '/privacy-policy/', termsUrl: '/terms-of-service/', cookiesUrl: '/cookie-settings/' };
+const independenceHeading = isEn ? 'Independence statement' : 'Pernyataan independensi';
+const independenceText = isEn
+  ? 'This site is an independent visitor-information guide project, with no affiliation to any government agency, royal family, destination manager, or official organization.'
+  : 'Situs ini adalah proyek panduan informasi pengunjung independen, tanpa hubungan afiliasi dengan instansi pemerintah, keluarga kerajaan, pengelola destinasi, atau organisasi resmi.';
+const sourceText = isEn
+  ? 'Destination information is referenced and cross-checked against public material from the Gianyar Regency Government, the Gianyar Regency Tourism Office, the Bali Provincial Tourism Office, the Bali Provincial Transportation Agency, and the Indonesian Ministry of Tourism / Indonesia.travel.'
+  : 'Informasi destinasi dirujuk dan dibandingkan dengan materi publik Pemerintah Kabupaten Gianyar, Dinas Pariwisata Kabupaten Gianyar, Dinas Pariwisata Provinsi Bali, Dinas Perhubungan Provinsi Bali, serta Kementerian Pariwisata Republik Indonesia / Indonesia.travel.';
+const copyright = isEn
+  ? '© 2026 Puri Saren Ubud Heritage Guide. All rights reserved.'
+  : '© 2026 Panduan Warisan Puri Saren Ubud. Hak cipta dilindungi.';
+const cookie = isEn
+  ? { region: 'Cookie choices', title: 'Privacy first.', body: 'Analytics are disabled by default. You can allow them, reject non-essential ones, or set preferences in detail.', settings: 'Settings', reject: 'Reject', accept: 'Allow analytics', saved: 'Your cookie preferences have been saved.', notSaved: 'Your choices apply to this page. The browser could not store them for future visits.' }
+  : { region: 'Pilihan Kuki', title: 'Privasi terlebih dahulu.', body: 'Analitik dinonaktifkan secara bawaan. Anda dapat mengizinkannya, menolak yang non-esensial, atau mengatur pilihan secara rinci.', settings: 'Atur', reject: 'Tolak', accept: 'Izinkan analitik', saved: 'Preferensi kuki Anda telah disimpan.', notSaved: 'Pilihan berlaku untuk halaman ini. Peramban tidak dapat menyimpannya untuk kunjungan berikutnya.' };
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': new URL('#website', site).href,
+      name: siteName,
+      url: site.href
+    },
+    {
+      '@type': 'TouristAttraction',
+      '@id': new URL('#attraction', site).href,
+      name: 'Puri Saren Agung (Ubud Palace)',
+      url: site.href
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      name: content.h1,
+      description,
+      inLanguage: localeHref,
+      isPartOf: { '@id': new URL('#website', site).href },
+      about: { '@id': new URL('#attraction', site).href },
+      breadcrumb: { '@id': `${canonical}#breadcrumb` }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonical}#breadcrumb`,
+      itemListElement: breadcrumbItems.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.name,
+        item: item.url
+      }))
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: content.faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a }
+      }))
+    }
+  ]
+};
+
+const gaId = 'G-HXM22WWPKP';
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1d1915" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="id" href={idUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={idUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={localeHref} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(graph)}></script>
+  </head>
+  <body>
+    <a href={'#' + mainId} class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">{skipLink}</a>
+
+    <header class="sticky top-0 z-30 border-b border-white/15 bg-[#1d1915] text-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 lg:px-8">
+        <a href={homeUrl} aria-label="Puri Saren Ubud — home" class="flex items-center gap-3 no-underline">
+          <img src="/favicon.svg" width="44" height="44" alt="" class="h-11 w-11 rounded-xl" />
+          <span class="leading-tight">
+            <strong class="serif block text-lg">Puri Saren Ubud</strong>
+            <span class="text-[.67rem] font-bold tracking-[.16em] text-white/70">{tagline}</span>
+          </span>
+        </a>
+        <nav class="flex items-center gap-3 text-sm font-semibold" aria-label={navAria}>
+          <a href={homeUrl} class="source-link no-underline hover:text-[#e7c88f]">{lang === 'en' ? 'Home' : 'Beranda'}</a>
+          <span class="text-white/30" aria-hidden="true">·</span>
+          <a href={otherUrl} class="btn-secondary text-sm text-white" hreflang={lang === 'en' ? 'id' : 'en'}>{lang === 'en' ? 'Bahasa Indonesia' : 'English'}</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id={mainId}>
+      <slot />
+    </main>
+
+    <footer class="border-t border-white/10 bg-[#171310] py-12 text-[#eee4d4]">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <img src="/brand/logo.svg" alt="Puri Saren Ubud — Panduan Warisan Gianyar" width="560" height="128" class="h-auto w-64 brightness-[1.7] invert-[.05]" />
+            <p class="mt-5 max-w-sm text-sm text-white/55">{footerDesc}</p>
+          </div>
+          <div class="grid gap-8 sm:grid-cols-2">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ad67]">{policyHeading}</p>
+              <div class="mt-4 flex flex-col items-start gap-2 text-sm text-white/66">
+                <a class="source-link" href={policyLinks.privacyUrl}>{policyLinks.privacy}</a>
+                <a class="source-link" href={policyLinks.termsUrl}>{policyLinks.terms}</a>
+                <a class="source-link" href={policyLinks.cookiesUrl}>{policyLinks.cookies}</a>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ad67]">{independenceHeading}</p>
+              <p class="mt-4 text-sm leading-6 text-white/58">{independenceText}</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-10 border-t border-white/10 pt-7 text-xs leading-6 text-white/45">
+          <p>{sourceText}</p>
+          <p class="mt-2">{copyright}</p>
+        </div>
+      </div>
+    </footer>
+
+    <div id="cookie-banner" class="cookie-banner" hidden role="region" aria-label={cookie.region}>
+      <div class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div><strong class="serif text-lg">{cookie.title}</strong><p class="mt-1 text-sm text-white/68">{cookie.body}</p></div>
+        <div class="flex flex-wrap gap-2 sm:justify-end"><a id="banner-settings" class="btn-secondary text-sm" href={policyLinks.cookiesUrl}>{cookie.settings}</a><button id="banner-reject" class="btn-secondary text-sm">{cookie.reject}</button><button id="banner-accept" class="btn-primary border-0 text-sm">{cookie.accept}</button></div>
+      </div>
+    <p id="banner-status" role="status" aria-live="polite"></p></div>
+
+    <script is:inline>
+      (() => {
+        const STORAGE_KEY = 'puri-saren-cookie-v1';
+        const GA_ID = '{gaId}';
+        const banner = document.getElementById('cookie-banner');
+        const readPrefs = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; } };
+        const writePrefs = (prefs) => {
+          applyAnalytics(prefs.analytics === true);
+          let saved = false;
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs)); saved = true; } catch {}
+          const message = saved ? '{cookie.saved}' : '{cookie.notSaved}';
+          if (banner) banner.hidden = saved;
+          const status = document.getElementById('banner-status');
+          if (status) status.textContent = saved ? '' : message;
+        };
+        const applyAnalytics = (enabled) => {
+          window['ga-disable-' + GA_ID] = !enabled;
+          if (!enabled || document.querySelector('script[data-ga4]')) return;
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ window.dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', GA_ID, { anonymize_ip: true });
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+          script.dataset.ga4 = 'consented';
+          document.head.appendChild(script);
+        };
+        const initial = readPrefs();
+        applyAnalytics(initial?.analytics === true);
+        if (!initial && banner) banner.hidden = false;
+        document.getElementById('banner-reject')?.addEventListener('click', () => writePrefs({ necessary: true, analytics: false, preferences: false, marketing: false }));
+        document.getElementById('banner-accept')?.addEventListener('click', () => writePrefs({ necessary: true, analytics: true, preferences: false, marketing: false }));
+      })();
+    </script>
+  </body>
+</html>

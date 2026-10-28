@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME } from '../data/site';
+import { SITE_NAME, SITE_NAME_EN } from '../data/site';
 
 interface Props {
   title: string;
@@ -8,17 +8,48 @@ interface Props {
   eyebrow: string;
   updated?: string;
   noindex?: boolean;
+  lang?: 'id' | 'en';
 }
 
-const { title, description, eyebrow, updated = 'Agustus 2026', noindex = false } = Astro.props;
-const pageTitle = `${title} | ${SITE_NAME}`;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
-const imagePath = '/images/ubud-palace-entrance.webp';
-const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
----
+const { title, description, eyebrow, updated = 'Agustus 2026', noindex = false, lang = 'id' } = Astro.props;
+const isEn = lang === 'en';
+const siteName = isEn ? SITE_NAME_EN : SITE_NAME;
 
+const site = Astro.site ?? new URL('https://palaceubud.com');
+const canonical = new URL(Astro.url.pathname, site).href;
+const idUrl = isEn ? new URL(Astro.url.pathname.slice(3), site).href : canonical;
+const enUrl = isEn ? canonical : new URL('en' + Astro.url.pathname, site).href;
+
+const htmlLang = isEn ? 'en' : 'id';
+const ogLocale = isEn ? 'en_US' : 'id_ID';
+const pageTitle = `${title} | ${siteName}`;
+const homeUrl = isEn ? '/en/' : '/';
+const otherUrl = isEn ? idUrl : enUrl;
+const otherLabel = isEn ? 'Bahasa Indonesia' : 'English';
+const updatedLabel = isEn ? 'Updated' : 'Terakhir diperbarui';
+
+const footer = isEn
+  ? {
+      copyright: '© 2026 Puri Saren Ubud Heritage Guide. All rights reserved.',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service',
+      cookies: 'Cookie Settings',
+      privacyUrl: '/en/privacy-policy/',
+      termsUrl: '/en/terms-of-service/',
+      cookiesUrl: '/en/cookie-settings/'
+    }
+  : {
+      copyright: '© 2026 Panduan Warisan Puri Saren Ubud. Hak cipta dilindungi.',
+      privacy: 'Kebijakan Privasi',
+      terms: 'Ketentuan Layanan',
+      cookies: 'Pengaturan Kuki',
+      privacyUrl: '/privacy-policy/',
+      termsUrl: '/terms-of-service/',
+      cookiesUrl: '/cookie-settings/'
+    };
+---
 <!doctype html>
-<html lang="id">
+<html lang={htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,34 +57,41 @@ const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1d1915" />
     <meta name="robots" content={noindex ? "noindex,follow" : "index,follow,max-image-preview:large"} />
-    {!noindex && canonical && <link rel="canonical" href={canonical} />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    {!noindex && <link rel="alternate" hreflang="id" href={idUrl} />}
+    {!noindex && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={idUrl} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="id_ID" />
-    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={new URL('/images/ubud-palace-entrance.webp', site).href} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={new URL('/images/ubud-palace-entrance.webp', site).href} />
   </head>
   <body>
     <header class="sticky top-0 z-30 border-b border-white/15 bg-[#1d1915] text-white">
       <div class="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 lg:px-8">
-        <a href="/#atas" aria-label="Puri Saren Ubud — kembali ke beranda" class="flex items-center gap-3 no-underline">
+        <a href={homeUrl} aria-label={isEn ? 'Puri Saren Ubud — home' : 'Puri Saren Ubud — beranda'} class="flex items-center gap-3 no-underline">
           <img src="/favicon.svg" width="44" height="44" alt="" class="h-11 w-11 rounded-xl" />
           <span class="leading-tight">
             <strong class="serif block text-lg">Puri Saren Ubud</strong>
-            <span class="text-[.67rem] font-bold tracking-[.16em] text-white/70">PANDUAN WARISAN</span>
+            <span class="text-[.67rem] font-bold tracking-[.16em] text-white/70">{isEn ? 'HERITAGE GUIDE' : 'PANDUAN WARISAN'}</span>
           </span>
         </a>
-        <a href="/" class="btn-secondary text-sm text-white">Kembali ke beranda</a>
+        <nav class="flex items-center gap-3 text-sm font-semibold" aria-label={isEn ? 'Language and home' : 'Bahasa dan beranda'}>
+          <a href={homeUrl} class="btn-secondary text-sm text-white">{isEn ? 'Home' : 'Beranda'}</a>
+          <span class="text-white/30" aria-hidden="true">·</span>
+          <a href={otherUrl} class="source-link no-underline hover:text-[#e7c88f]" hreflang={isEn ? 'id' : 'en'}>{otherLabel}</a>
+        </nav>
       </div>
     </header>
 
@@ -61,7 +99,7 @@ const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
       <div class="mx-auto max-w-3xl px-5 py-16 lg:py-20">
         <p class="eyebrow">{eyebrow}</p>
         <h1 class="serif mt-4 text-4xl font-bold tracking-tight lg:text-5xl">{title}</h1>
-        <p class="mt-3 text-sm font-bold uppercase tracking-[.12em] text-[#743625]">Terakhir diperbarui: {updated}</p>
+        <p class="mt-3 text-sm font-bold uppercase tracking-[.12em] text-[#743625]">{updatedLabel}: {updated}</p>
         <div class="doc-prose mt-8">
           <slot />
         </div>
@@ -71,11 +109,11 @@ const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
     <footer class="border-t border-white/10 bg-[#171310] py-10 text-[#eee4d4]">
       <div class="mx-auto max-w-7xl px-5 lg:px-8">
         <div class="flex flex-wrap items-center justify-between gap-4">
-          <p class="text-sm text-white/55">© 2026 Panduan Warisan Puri Saren Ubud. Hak cipta dilindungi.</p>
-          <nav class="flex flex-wrap gap-4 text-sm text-white/70" aria-label="Kebijakan situs">
-            <a href="/privacy-policy/" class="no-underline hover:text-[#e7c88f]">Kebijakan Privasi</a>
-            <a href="/terms-of-service/" class="no-underline hover:text-[#e7c88f]">Ketentuan Layanan</a>
-            <a href="/cookie-settings/" class="no-underline hover:text-[#e7c88f]">Pengaturan Kuki</a>
+          <p class="text-sm text-white/55">{footer.copyright}</p>
+          <nav class="flex flex-wrap gap-4 text-sm text-white/70" aria-label="Site policies">
+            <a href={footer.privacyUrl} class="no-underline hover:text-[#e7c88f]">{footer.privacy}</a>
+            <a href={footer.termsUrl} class="no-underline hover:text-[#e7c88f]">{footer.terms}</a>
+            <a href={footer.cookiesUrl} class="no-underline hover:text-[#e7c88f]">{footer.cookies}</a>
           </nav>
         </div>
       </div>

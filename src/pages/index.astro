@@ -1,6 +1,10 @@
 ---
 import '../styles/global.css';
 import { SITE_NAME } from '../data/site';
+import TopicLinks from '../components/TopicLinks.astro';
+
+const altId = Astro.site ? new URL('/', Astro.site).href : '/';
+const altEn = Astro.site ? new URL('/en/', Astro.site).href : '/en/';
 
 const title = 'Puri Saren Agung / Ubud Palace: Lokasi, Jam & Tiket';
 const description = 'Panduan independen Puri Saren Agung (Ubud Palace) di Jl. Raya Ubud No.8: jam peta 07.00–17.00, akses area publik, tiket dan pertunjukan tari yang perlu dikonfirmasi.';
@@ -113,6 +117,9 @@ const faqSchema = {
     <meta name="theme-color" content="#1d1915" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="alternate" hreflang="id" href={altId} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="x-default" href={altId} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -181,7 +188,7 @@ const faqSchema = {
                   <p class="text-xs font-bold uppercase tracking-[.16em] text-white/55">Ringkas</p>
                   <p class="serif mt-1 text-2xl">Sebelum masuk</p>
                 </div>
-                <div class="rounded-full border border-[#e7c88f]/35 px-3 py-1 text-sm font-bold text-[#e7c88f]">4,3 / 5 · 20.749 ulasan</div>
+                <div class="rounded-full border border-[#e7c88f]/35 px-3 py-1 text-sm font-bold text-[#e7c88f]">4,3 / 5 · 20.835 ulasan</div>
               </div>
               <dl class="mt-5 grid gap-5 text-sm sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 <div><dt class="text-white/50">Jam peta</dt><dd class="mt-1 font-bold">07.00–17.00</dd></div>
@@ -369,11 +376,13 @@ const faqSchema = {
               <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://www.indonesia.travel/id/en/destination/bali-nusa-tenggara/bali/istana-ubud" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Nasional</span><strong class="mt-2 block">Indonesia.travel / Kementerian Pariwisata</strong><span class="mt-1 block text-sm text-[#65584c]">Konteks destinasi, keluarga kerajaan, dan seni pertunjukan.</span></a>
               <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://dishub.baliprov.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Transportasi</span><strong class="mt-2 block">Dinas Perhubungan Provinsi Bali</strong><span class="mt-1 block text-sm text-[#65584c]">Rujukan perubahan jaringan angkutan dan mobilitas Ubud.</span></a>
               <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://bali-airport.com/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Bandara</span><strong class="mt-2 block">Bandara Internasional I Gusti Ngurah Rai</strong><span class="mt-1 block text-sm text-[#65584c]">Informasi gerbang udara dan layanan bandara.</span></a>
-              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Data lokasi</span><strong class="mt-2 block">Google Maps</strong><span class="mt-1 block text-sm text-[#65584c]">Diperiksa 19 Oktober 2026: alamat, pin, jam 07.00–17.00, rating 4,3 dari 20.749 ulasan. Data listing dapat berubah; bukan konfirmasi pertunjukan.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Data lokasi</span><strong class="mt-2 block">Google Maps</strong><span class="mt-1 block text-sm text-[#65584c]">Diperiksa 19 Oktober 2026: alamat, pin, jam 07.00–17.00, rating 4,3 dari 20.835 ulasan. Data listing dapat berubah; bukan konfirmasi pertunjukan.</span></a>
             </div>
           </div>
         </div>
       </section>
+
+      <TopicLinks lang="id" />
     </main>
 
     <footer class="border-t border-white/10 bg-[#171310] py-12 text-[#eee4d4]">

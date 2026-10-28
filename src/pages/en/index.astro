@@ -1,0 +1,467 @@
+---
+import '../../styles/global.css';
+import { SITE_NAME_EN } from '../../data/site';
+import TopicLinks from '../../components/TopicLinks.astro';
+
+const altId = Astro.site ? new URL('/', Astro.site).href : '/';
+const altEn = Astro.site ? new URL('/en/', Astro.site).href : '/en/';
+
+const title = 'Puri Saren Agung / Ubud Palace: Location, Hours & Tickets';
+const description = 'An independent guide to Puri Saren Agung (Ubud Palace) on Jl. Raya Ubud No.8: listed hours 07.00–17.00, public-access areas, tickets and dance performances to confirm on site.';
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const imagePath = '/images/ubud-palace-entrance.webp';
+const ogImage = Astro.site ? new URL(imagePath, Astro.site).href : imagePath;
+
+const quickFacts = [
+  ['Local name', 'Puri Saren Agung'],
+  ['Location', 'Jl. Raya Ubud No.8, Ubud, Gianyar, Bali 80571'],
+  ['Listed hours', '07.00–17.00 daily; Maps 19 October 2026'],
+  ['Daytime entry', 'Maps: free, checked 19 October 2026'],
+  ['Access', 'Only staff-permitted areas'],
+  ['Character', 'Living royal palace and cultural space']
+];
+
+const timeline = [
+  {
+    label: 'Ubud kingdom era',
+    title: 'Royal residence and seat of power',
+    body: 'Puri Saren Agung grew as the residence of Ubud’s royal family and a local centre of power. So the complex is not just an old building: its residential, customary, and representative roles still matter in how the place is understood.'
+  },
+  {
+    label: 'Art in Ubud',
+    title: 'Ubud as a meeting point for the arts',
+    body: 'Ubud became known as a centre of Balinese art. The palace environment became part of the ecosystem of performance art, gamelan, ceremony, and cultural patronage that shapes Ubud’s image today.'
+  },
+  {
+    label: 'Cultural life',
+    title: 'Dance and gamelan as living tradition',
+    body: 'Documentation from the Gianyar Regency government describes Puri Saren’s role in Ubud’s arts and culture. That record is not a current performance schedule.'
+  },
+  {
+    label: 'Today',
+    title: 'Partly open, part still private',
+    body: 'Some areas are open to the public, while others remain tied to the royal family’s life and customary activities. Access boundaries can shift during ceremonies or special events.'
+  }
+];
+
+const architecture = [
+  ['01', 'Gateway and thresholds', 'A gateway is not merely decorative. In Balinese architecture, a threshold marks the passage from outer space to space with its own order, function, and degree of sacredness. Notice the brickwork, paras stone, and carvings at the entrance.'],
+  ['02', 'Bale and courtyards', 'Open pavilions (bale) rely on the relationship between roof, columns, courtyard, and air flow. The spatial experience comes from the sequence of courtyards, not from one enclosed building like a European palace.'],
+  ['03', 'Red brick and paras stone', 'Terracotta tones, grey stone, floral carving, and figurative detail give rhythm to the walls and gates. The materials look decorative yet show the skill of Balinese traditional builders.'],
+  ['04', 'Space that still functions', 'Do not read the whole complex as an exhibition object. Certain areas still connect to residence, ceremony, performance preparation, and customary activity; respect the boundary markers.']
+];
+
+const facilities = [
+  ['Toilets / WC', 'Availability in the public visiting area can be limited. Use public facilities in central Ubud before entering if needed.', 'caution'],
+  ['Parking', 'Do not rely on parking right at the gate. Central Ubud is dense; look for official public parking and follow local signs.', 'caution'],
+  ['Wheelchair access', 'Stone surfaces, thresholds, and steps make the route not fully barrier-free. A companion can help.', 'caution'],
+  ['Food & drink', 'Many warung, restaurants, cafés, and daily-needs shops in central Ubud; consume outside the restricted areas.', 'ok'],
+  ['Accommodation', 'Central Ubud has guesthouses, homestays, boutique hotels, and villas. Choose by walkable access and mobility needs, not commercial ranking.', 'ok'],
+  ['Daily shopping', 'Traditional market, minimarket, and supermarket available in Ubud. Check each facility’s opening hours on arrival.', 'ok'],
+  ['Fuel & EV charging', 'Petrol stations and EV charging points exist in wider Ubud/Gianyar; location and status should be checked before departure.', 'caution'],
+  ['Weather & shade', 'Part of the visit is outdoors. Bring sun or rain protection; surfaces can be slippery after rain.', 'caution']
+];
+
+const faq = [
+  ['Is entry to Puri Saren Agung free?', 'Google Maps checked on 19 October 2026 shows free daytime general admission. This is only a listing snapshot, not a guarantee that all areas are accessible, and it does not cover performances. Confirm on site; we have not verified prices or performance schedules.'],
+  ['When is Ubud Palace open?', 'The Google Maps listing checked 19 October 2026 shows 07.00–17.00 daily. These are not evening performance hours and do not guarantee the whole palace is open. Confirm access with staff on the day of visit.'],
+  ['Is the palace still occupied by the royal family?', 'Yes, official Indonesian tourism sources say part of the complex is still used by the royal family. So not all parts are open to the public.'],
+  ['Are there dance performances every night?', 'Indonesia.travel mentions traditional dance performances at night. The source does not confirm performances every night. Confirm date, start time, performance location, and ticket price with the organizer before buying.'],
+  ['What is the right dress?', 'Wear modest, comfortable clothing. If there is a ceremony or an area with specific rules, follow staff and local guidance. Do not move offerings.'],
+  ['Is it easy to visit with a wheelchair?', 'Not entirely. Some surfaces are uneven, with thresholds and steps, and circulation can be narrow. Visitors with mobility needs should come with a companion and assess the route on site.'],
+  ['Is there parking in front of the palace?', 'Central Ubud is very dense and parking right at the gate cannot be guaranteed. Safer to plan official public parking, drop off at a safe point, or walk from central accommodation.'],
+  ['When is the best time to come?', 'Morning after opening is usually more comfortable for observing architectural detail and avoiding heat. Afternoon gives a different mood, but do not treat daytime visiting hours as evening performance hours.']
+];
+
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristAttraction',
+  name: 'Puri Saren Agung (Ubud Palace)',
+  alternateName: ['Istana Ubud', 'Ubud Palace', 'Istana Kerajaan Ubud'],
+  description,
+  ...(canonical ? { url: canonical } : {}),
+  ...(Astro.site ? { image: new URL(imagePath, Astro.site).href } : {}),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Jl. Raya Ubud No.8',
+    addressLocality: 'Ubud',
+    addressRegion: 'Bali',
+    postalCode: '80571',
+    addressCountry: 'ID'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -8.5065977,
+    longitude: 115.2625884
+  }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([question, answer]) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer }
+  }))
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1d1915" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="id" href={altId} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="x-default" href={altId} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content={SITE_NAME_EN} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(attractionSchema)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  </head>
+  <body>
+    <a href="#content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">Skip to content</a>
+
+    <header class="absolute inset-x-0 top-0 z-30 border-b border-white/15 text-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 lg:px-8">
+        <a href="#top" aria-label="Puri Saren Ubud — back to top" class="flex items-center gap-3 no-underline">
+          <img src="/favicon.svg" width="44" height="44" alt="" class="h-11 w-11 rounded-xl" />
+          <span class="leading-tight">
+            <strong class="serif block text-lg">Puri Saren Ubud</strong>
+            <span class="text-[.67rem] font-bold tracking-[.16em] text-white/70">HERITAGE GUIDE</span>
+          </span>
+        </a>
+        <nav aria-label="Main navigation" class="main-nav flex flex-wrap items-center gap-6 text-sm font-semibold">
+          <a href="#history" class="no-underline hover:text-[#e7c88f]">History</a>
+          <a href="#visit" class="no-underline hover:text-[#e7c88f]">Visit</a>
+          <a href="#transport" class="no-underline hover:text-[#e7c88f]">Transport</a>
+          <a href="#facilities" class="no-underline hover:text-[#e7c88f]">Facilities</a>
+          <a href="#around" class="no-underline hover:text-[#e7c88f]">Around</a>
+          <a href="#faq" class="no-underline hover:text-[#e7c88f]">FAQ</a>
+        </nav>
+        <a href="#map" class="btn-secondary text-sm text-white">View map</a>
+      </div>
+    </header>
+
+    <main id="content">
+      <section id="top" class="relative min-h-[880px] overflow-hidden bg-[#181411] text-white lg:min-h-[760px]">
+        <img src="/images/ubud-palace-entrance.webp" alt="Gateway and architecture of Puri Saren Agung in central Ubud" width="1800" height="1200" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="hero-overlay hero-grid absolute inset-0"></div>
+        <div class="relative mx-auto flex min-h-[880px] max-w-7xl items-end px-5 pb-14 pt-36 lg:min-h-[760px] lg:px-8 lg:pb-16">
+          <div class="grid w-full gap-10 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
+            <div class="max-w-4xl">
+              <div class="mb-6 flex flex-wrap gap-2">
+                <span class="tag !bg-white/12 !text-[#f2dfbb]">Ubud · Gianyar Regency</span>
+                <span class="tag !bg-white/12 !text-[#f2dfbb]">Royal palace & cultural space</span>
+              </div>
+              <p class="mb-4 text-sm font-bold uppercase tracking-[.2em] text-[#e7c88f]">Independent · noncommercial guide</p>
+              <h1 class="serif max-w-4xl text-[clamp(3.8rem,9vw,8rem)] leading-[.82] tracking-[-.055em]">Puri Saren<br /><span class="text-[#e7c88f]">Agung.</span><span class="mt-5 block font-sans text-2xl leading-tight tracking-normal">Ubud Palace · Bali</span></h1>
+              <p class="mt-7 max-w-2xl text-lg leading-8 text-white/82 lg:text-xl">In the heart of Ubud, this palace is still read as a living space: royal residence, performance stage, ceremony courtyard, and an archive of Balinese architecture you can read through detail, spatial order, and visiting etiquette.</p>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <a class="btn-primary" href="#visit">Plan your visit <span aria-hidden="true">↓</span></a>
+                <a class="btn-secondary" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer">Open in Google Maps <span aria-hidden="true">↗</span></a>
+              </div>
+              <p class="mt-5 text-xs text-white/55">Photo: Niklas Weiss / Unsplash · stored locally.</p>
+            </div>
+            <aside class="glass rounded-[28px] p-6 lg:p-7" aria-label="Visit summary">
+              <div class="flex items-start justify-between gap-4 border-b border-white/15 pb-5">
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-[.16em] text-white/55">At a glance</p>
+                  <p class="serif mt-1 text-2xl">Before you enter</p>
+                </div>
+                <div class="rounded-full border border-[#e7c88f]/35 px-3 py-1 text-sm font-bold text-[#e7c88f]">4.3 / 5 · 20,835 reviews</div>
+              </div>
+              <dl class="mt-5 grid gap-5 text-sm sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                <div><dt class="text-white/50">Listed hours</dt><dd class="mt-1 font-bold">07.00–17.00</dd></div>
+                <div><dt class="text-white/50">Daytime area</dt><dd class="mt-1 font-bold">Maps: free*</dd></div>
+                <div><dt class="text-white/50">Duration</dt><dd class="mt-1 font-bold">As access allows</dd></div>
+                <div><dt class="text-white/50">Dress</dt><dd class="mt-1 font-bold">Modest & comfortable</dd></div>
+              </dl>
+              <p class="mt-6 rounded-2xl bg-white/8 p-4 text-sm leading-6 text-white/70"><strong class="text-white">Checked 19 October 2026:</strong> *Free refers to the daytime general-admission snippet on Maps, not a performance ticket. Daytime visiting hours and evening performance schedules are two different things. Customary activities can change access without long notice.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="pattern-border bg-[#fffaf1] py-16 lg:py-20" aria-labelledby="facts-title">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="mb-9 grid gap-5 md:grid-cols-[.8fr_1.2fr] md:items-end">
+            <div><span class="eyebrow">Orientation</span><h2 id="facts-title" class="serif mt-3 text-4xl font-bold tracking-tight">Six facts for reading the place</h2></div>
+            <p class="section-copy md:justify-self-end">Operational details can change; this page separates location facts that can be re-checked from historical and cultural context that is more stable.</p>
+          </div>
+          <dl class="info-grid grid overflow-hidden rounded-[26px] border border-black/10 bg-white sm:grid-cols-2 lg:grid-cols-3">
+            {quickFacts.map(([term, detail]) => <div class="min-h-32 border-b border-black/10 p-6 sm:border-r lg:[&:nth-child(3n)]:border-r-0 lg:[&:nth-last-child(-n+3)]:border-b-0"><dt>{term}</dt><dd>{detail}</dd></div>)}
+          </dl>
+        </div>
+      </section>
+
+      <section id="history" class="bg-[#1d1915] py-20 text-[#f6f0e6] lg:py-28">
+        <div class="mx-auto grid max-w-7xl gap-14 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
+          <div class="lg:sticky lg:top-8 lg:self-start">
+            <span class="eyebrow !text-[#d7ad67]">History & context</span>
+            <h2 class="section-title mt-5">Not a ruin. <span class="text-[#d7ad67]">A living palace.</span></h2>
+            <p class="mt-7 max-w-xl text-lg leading-8 text-white/68">Official Indonesian tourism sources describe Ubud Palace or Puri Saren Agung as the official residence of Ubud’s royal family. Part of the area is open to the public, while its residential and cultural functions keep running.</p>
+            <blockquote class="mt-8 border-l-2 border-[#d7ad67] pl-5 text-white/75">The right way to see Puri Saren Agung is not only to look for the “oldest building”, but to understand the relationship between local power, Balinese spatial order, performance, and customary life in central Ubud.</blockquote>
+          </div>
+          <div class="timeline space-y-10">
+            {timeline.map((item) => <article class="timeline-item"><p class="text-xs font-bold uppercase tracking-[.16em] text-[#d7ad67]">{item.label}</p><h3 class="serif mt-1 text-2xl font-bold">{item.title}</h3><p class="mt-3 max-w-2xl text-white/62">{item.body}</p></article>)}
+            <div class="ml-12 rounded-2xl border border-white/12 bg-white/5 p-5 text-sm leading-6 text-white/58"><strong class="text-white">Methodology note:</strong> we avoid a single construction date that often differs across popular sources. For public context, government and official tourism sources are given priority.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[#efe4d3] py-20 lg:py-28" aria-labelledby="architecture-title">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+            <div><span class="eyebrow">How to read the architecture</span><h2 id="architecture-title" class="section-title mt-4">Look at the sequence of space, not just the carving.</h2></div>
+            <p class="section-copy lg:justify-self-end">Balinese palace architecture is shaped by courtyards, gates, bale, thresholds, materials, and function. The publicly visible part is only one layer of a wider complex.</p>
+          </div>
+          <div class="mt-12 grid gap-5 md:grid-cols-2">
+            {architecture.map(([num, name, body]) => <article class="card-flat rounded-[24px] p-7"><div class="arch-number">{num}</div><h3 class="serif mt-5 text-2xl font-bold">{name}</h3><p class="mt-3 text-[#65584c]">{body}</p></article>)}
+          </div>
+          <div class="mt-12 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
+            <figure class="overflow-hidden rounded-[28px] bg-[#1d1915]">
+              <img src="/images/ubud-palace-pavilion.webp" alt="Pavilion and traditional Balinese architecture in the Puri Saren Agung area" width="1800" height="1200" loading="lazy" class="h-full min-h-[420px] w-full object-cover" />
+            </figure>
+            <div class="rounded-[28px] bg-[#9f4f35] p-8 text-white lg:p-10">
+              <p class="text-xs font-bold uppercase tracking-[.16em] text-white/60">Visual etiquette</p>
+              <h3 class="serif mt-3 text-3xl font-bold">Photograph with respect.</h3>
+              <p class="mt-5 text-white/78">Do not climb gates, sit on ritual structures, block processions, or move offerings for a photo composition. During ceremonies or performances, follow the barriers and on-site guidance.</p>
+              <p class="mt-7 text-xs text-white/55">Photo: Ameya Khanzode / Unsplash · stored locally.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="visit" class="bg-[#fffaf1] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <span class="eyebrow">Visit planning</span>
+          <div class="mt-4 grid gap-10 lg:grid-cols-[1fr_1fr]">
+            <div>
+              <h2 class="section-title">Arrive with the right expectations.</h2>
+              <p class="section-copy mt-6">Puri Saren Agung suits a short visit deepened by observation. Its value is not the size of the public area, but the context of royalty, architecture, and performance culture.</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <article class="card rounded-[22px] p-6"><span class="tag">Hours</span><h3 class="serif mt-4 text-2xl font-bold">07.00–17.00</h3><p class="mt-2 text-sm text-[#65584c]">Google Maps listing checked 19 October 2026, not the evening performance schedule. Access can adjust to customary activities.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Cost</span><h3 class="serif mt-4 text-2xl font-bold">Daytime: check terms</h3><p class="mt-2 text-sm text-[#65584c]">Maps on 19 October 2026 shows free daytime general admission. It does not cover performances or guarantee full access; confirm on site.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Best time</span><h3 class="serif mt-4 text-2xl font-bold">Morning after opening</h3><p class="mt-2 text-sm text-[#65584c]">More comfortable for detail and less heat. Central Ubud gets busier toward midday.</p></article>
+              <article class="card rounded-[22px] p-6"><span class="tag">Duration</span><h3 class="serif mt-4 text-2xl font-bold">As access allows</h3><p class="mt-2 text-sm text-[#65584c]">Match duration to permitted areas, customary activities, and mobility needs.</p></article>
+            </div>
+          </div>
+
+          <div class="mt-12 grid gap-5 lg:grid-cols-3">
+            <article class="rounded-[24px] border border-black/10 bg-[#f2e7d4] p-7"><p class="text-xs font-bold uppercase tracking-[.14em] text-[#743625]">Before entering</p><h3 class="serif mt-2 text-2xl font-bold">Check that day’s activities</h3><p class="mt-3 text-[#65584c]">If there is a ceremony, performance preparation, or family event, some paths may close temporarily. Respect access decisions on the ground.</p></article>
+            <article class="rounded-[24px] border border-black/10 bg-[#f2e7d4] p-7"><p class="text-xs font-bold uppercase tracking-[.14em] text-[#743625]">Inside</p><h3 class="serif mt-2 text-2xl font-bold">Move slowly</h3><p class="mt-3 text-[#65584c]">Mind thresholds and uneven floors. Give space to residents, staff, musicians, and ceremony groups using the complex.</p></article>
+            <article class="rounded-[24px] border border-black/10 bg-[#f2e7d4] p-7"><p class="text-xs font-bold uppercase tracking-[.14em] text-[#743625]">Evening show</p><h3 class="serif mt-2 text-2xl font-bold">Treat as a separate agenda</h3><p class="mt-3 text-[#65584c]">Dance and gamelan schedules can differ from daytime visiting hours. Verify the type of show, start time, and ticket on the same day.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="transport" class="bg-[#e8d8bd] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
+            <div>
+              <span class="eyebrow">Detailed transport</span>
+              <h2 class="section-title mt-4">To the heart of Ubud.</h2>
+              <p class="section-copy mt-6">A safe address to give the driver: <strong>Puri Saren Agung, Jl. Raya Ubud No.8, Ubud, Kabupaten Gianyar</strong>. Travel time is strongly affected by traffic.</p>
+            </div>
+            <div class="space-y-4">
+              <details open class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">From I Gusti Ngurah Rai International Airport (DPS)</summary><p class="mt-3 text-[#65584c]">Ngurah Rai is Bali’s main air gateway. Land options include official airport taxis, licensed taxis, car hire with driver, or app-based transport by pickup zone. The trip to Ubud can stretch sharply at peak hours; do not schedule tight connections afterwards.</p></details>
+              <details class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Bus / public transport</summary><p class="mt-3 text-[#65584c]">Trans Metro Dewata and developing Ubud mobility links can help reach the Gianyar/Ubud area, but routes, stops, and feeder service patterns change. Use the Bali Provincial Transport Agency channel to check the active network on the travel day, then continue on foot or by local transport from the nearest point in central Ubud.</p></details>
+              <details class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Taxis and app-based transport</summary><p class="mt-3 text-[#65584c]">Ask to be dropped at a safe roadside point that does not block central Ubud flow. Some areas have local pickup rules; follow signs and staff guidance. Confirm the fare or app estimate before departure.</p></details>
+              <details class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Private car or motorbike</summary><p class="mt-3 text-[#65584c]">Central Ubud roads are busy, some stretches narrow, and parking near the site is limited. Avoid stopping in front of the gate. Use official public parking and walk from there.</p></details>
+              <details class="card-flat rounded-[22px] p-6"><summary class="cursor-pointer list-none font-extrabold">Walking from central Ubud</summary><p class="mt-3 text-[#65584c]">If you stay in central Ubud, walking is often the simplest choice. Mind uneven sidewalks, busy crossings, rain, and midday heat.</p></details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="facilities" class="bg-[#fffaf1] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-6 md:grid-cols-[.8fr_1.2fr] md:items-end">
+            <div><span class="eyebrow">Facilities & needs</span><h2 class="section-title mt-4">Small things that decide comfort.</h2></div>
+            <p class="section-copy md:justify-self-end">Because this is a cultural complex in the city centre, some needs are more realistically met in the surrounding Ubud area than inside the palace. We do not recommend specific vendors or operators.</p>
+          </div>
+          <div class="mt-12 grid gap-px overflow-hidden rounded-[28px] border border-black/10 bg-black/10 md:grid-cols-2">
+            {facilities.map(([name, text, status]) => <article class="bg-white p-6 lg:p-7"><div class={`facility-status ${status === 'caution' ? 'caution' : ''}`}>{status === 'caution' ? 'Plan ahead' : 'Easy to find nearby'}</div><h3 class="serif mt-3 text-2xl font-bold">{name}</h3><p class="mt-2 text-sm text-[#65584c]">{text}</p></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="overflow-hidden bg-[#1d1915] py-20 text-white lg:py-28" aria-labelledby="gallery-title">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <span class="eyebrow !text-[#d7ad67]">Atmosphere</span>
+          <div class="mt-4 grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end"><h2 id="gallery-title" class="section-title">Palace, water, stone, and ceremony space.</h2><p class="max-w-2xl text-white/62">Photos are chosen as documentation of the Ubud atmosphere and palace area; not fabricated illustrations. All main image files are stored locally so the page does not depend on third-party image links.</p></div>
+          <figure class="mt-10 overflow-hidden rounded-[30px] border border-white/10">
+            <img src="/images/ubud-palace-lotus.webp" alt="Lotus pond and Balinese architecture in Ubud" width="1800" height="1200" loading="lazy" class="h-[520px] w-full object-cover" />
+            <figcaption class="flex flex-wrap justify-between gap-2 bg-white/5 px-5 py-4 text-xs text-white/52"><span>Visual documentation of the Ubud, Bali area.</span><span>Photo: Mitch Hodiono / Unsplash · Unsplash licence.</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="around" class="bg-[#efe4d3] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-12 lg:grid-cols-2">
+            <div>
+              <span class="eyebrow">Eating nearby</span>
+              <h2 class="serif mt-4 text-4xl font-bold tracking-tight lg:text-5xl">Choose by type, not a “best list”.</h2>
+              <p class="mt-5 text-[#65584c]">As a noncommercial guide, we do not rank or promote specific businesses. In central Ubud, common choices include:</p>
+              <ul class="mt-6 grid gap-3 text-sm">
+                <li class="card-flat rounded-2xl p-4"><strong>Balinese / Indonesian warung</strong> — good for nasi campur, vegetables, side dishes, and daily menus.</li>
+                <li class="card-flat rounded-2xl p-4"><strong>Vegetarian / plant-based restaurants</strong> — Ubud has many; still ask about ingredients and allergens.</li>
+                <li class="card-flat rounded-2xl p-4"><strong>Cafés, bakeries, and light meals</strong> — useful for a short rest before or after the visit.</li>
+                <li class="card-flat rounded-2xl p-4"><strong>Market and daily-needs shops</strong> — practical for drinking water, fruit, and travel needs.</li>
+              </ul>
+            </div>
+            <div>
+              <span class="eyebrow">Nearby sights</span>
+              <h2 class="serif mt-4 text-4xl font-bold tracking-tight lg:text-5xl">Build one cultural trail.</h2>
+              <p class="mt-5 text-[#65584c]">Several places can be combined because they sit in central Ubud or are easy to reach from there. Tickets and hours for each should be checked separately.</p>
+              <div class="mt-6 grid gap-3">
+                <article class="card-flat rounded-2xl p-5"><h3 class="font-extrabold">Ubud Art Market</h3><p class="mt-1 text-sm text-[#65584c]">Reading the relationship between the royal centre, market, crafts, and Ubud’s urban space.</p></article>
+                <article class="card-flat rounded-2xl p-5"><h3 class="font-extrabold">Pura Taman Saraswati</h3><p class="mt-1 text-sm text-[#65584c]">A temple complex and water landscape that adds architectural and religious context.</p></article>
+                <article class="card-flat rounded-2xl p-5"><h3 class="font-extrabold">Campuhan Ridge Walk</h3><p class="mt-1 text-sm text-[#65584c]">A walking option to see green landscape away from the dense town centre.</p></article>
+                <article class="card-flat rounded-2xl p-5"><h3 class="font-extrabold">Mandala Suci Wenara Wana</h3><p class="mt-1 text-sm text-[#65584c]">A forest-and-temple area; treat it as its own destination with its own wildlife rules and ticket.</p></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="map" class="bg-[#fffaf1] py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="mb-8 grid gap-5 md:grid-cols-[.85fr_1.15fr] md:items-end"><div><span class="eyebrow">Map</span><h2 class="section-title mt-4">Ubud’s central point.</h2></div><p class="section-copy md:justify-self-end">The Google map below uses the Indonesian interface. Loading the map may connect your browser to Google services; our privacy settings are explained in <a class="font-bold text-[#743625] no-underline hover:text-[#a14b2b]" href="/en/privacy-policy/">our policy</a>.</p></div>
+          <div class="overflow-hidden rounded-[28px] border border-black/10 bg-[#e6d4b5] shadow-2xl shadow-black/10">
+            <iframe class="map-frame h-[520px] w-full" src="https://www.google.com/maps?q=-8.5065977,115.2625884&amp;output=embed" width="600" height="450" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Map of Puri Saren Agung, Ubud"></iframe>
+          </div>
+          <div class="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-[#65584c]"><span>Map coordinates: −8.5065977, 115.2625884</span><a class="source-link font-bold" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer">Get directions ↗</a></div>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-[#1d1915] py-20 text-white lg:py-28">
+        <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[.75fr_1.25fr] lg:px-8">
+          <div><span class="eyebrow !text-[#d7ad67]">FAQ</span><h2 class="section-title mt-4">Questions before you come.</h2><p class="mt-6 text-white/60">Answers are built for practical planning and to avoid misleading assumptions, especially about tickets, shows, access, and parking.</p></div>
+          <div class="space-y-3">
+            {faq.map(([question, answer], index) => <details class="rounded-[20px] border border-white/12 bg-white/5 p-5" open={index === 0}><summary class="cursor-pointer list-none pr-8 font-extrabold">{question}</summary><p class="mt-3 text-sm leading-6 text-white/62">{answer}</p></details>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="sources" class="bg-[#fffaf1] py-20 lg:py-24">
+        <div class="mx-auto max-w-7xl px-5 lg:px-8">
+          <div class="grid gap-10 lg:grid-cols-[.75fr_1.25fr]">
+            <div><span class="eyebrow">Sources & methodology</span><h2 class="serif mt-4 text-4xl font-bold tracking-tight">Transparent about where information comes from.</h2><p class="mt-5 text-[#65584c]">We prioritise government and official tourism sources, then compare them with map data for operational needs. There are no commercial rankings or booking commissions.</p></div>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://diparda.gianyarkab.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Local government</span><strong class="mt-2 block">Gianyar Regency Tourism Office</strong><span class="mt-1 block text-sm text-[#65584c]">Context for tourism and culture in Gianyar Regency.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://gianyarkab.go.id/informasi-publik/berita/pariwisata" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Local government</span><strong class="mt-2 block">Gianyar Regency Government</strong><span class="mt-1 block text-sm text-[#65584c]">Public information and cultural activity documentation.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://www.indonesia.travel/id/en/destination/bali-nusa-tenggara/bali/istana-ubud" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">National</span><strong class="mt-2 block">Indonesia.travel / Ministry of Tourism</strong><span class="mt-1 block text-sm text-[#65584c]">Destination context, royal family, and performing arts.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://dishub.baliprov.go.id/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Transport</span><strong class="mt-2 block">Bali Provincial Transport Agency</strong><span class="mt-1 block text-sm text-[#65584c]">Reference for changes in Ubud transport network and mobility.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://bali-airport.com/" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Airport</span><strong class="mt-2 block">I Gusti Ngurah Rai International Airport</strong><span class="mt-1 block text-sm text-[#65584c]">Air gateway and airport service information.</span></a>
+              <a class="card-flat rounded-2xl p-5 no-underline transition hover:-translate-y-0.5" href="https://maps.app.goo.gl/N4MhZtoyuNfEbo4A8" target="_blank" rel="noopener noreferrer"><span class="text-xs font-bold uppercase tracking-[.12em] text-[#743625]">Location data</span><strong class="mt-2 block">Google Maps</strong><span class="mt-1 block text-sm text-[#65584c]">Checked 19 October 2026: address, pin, hours 07.00–17.00, rating 4.3 from 20,835 reviews. Listing data can change; not a show confirmation.</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <TopicLinks lang="en" />
+    </main>
+
+    <footer class="border-t border-white/10 bg-[#171310] py-12 text-[#eee4d4]">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <img src="/brand/logo.svg" alt="Puri Saren Ubud — Gianyar Heritage Guide" width="560" height="128" class="h-auto w-64 brightness-[1.7] invert-[.05]" />
+            <p class="mt-5 max-w-sm text-sm text-white/55">A nonprofit visitor-guide project that helps visitors understand the context of a place before they come.</p>
+          </div>
+          <div class="grid gap-8 sm:grid-cols-2">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ad67]">Policies</p>
+              <div class="mt-4 flex flex-col items-start gap-2 text-sm text-white/66">
+                <a class="source-link" href="/en/privacy-policy/">Privacy Policy</a>
+                <a class="source-link" href="/en/terms-of-service/">Terms of Service</a>
+                <a class="source-link" href="/en/cookie-settings/">Cookie Settings</a>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ad67]">Independence statement</p>
+              <p class="mt-4 text-sm leading-6 text-white/58">This site is an independent visitor-information guide project, with no affiliation to any government body, royal family, destination manager, or official organisation.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-10 border-t border-white/10 pt-7 text-xs leading-6 text-white/45">
+          <p>Destination information is referenced and compared with public material from the Gianyar Regency Government, Gianyar Regency Tourism Office, Bali Provincial Tourism Office, Bali Provincial Transport Agency, and the Ministry of Tourism of the Republic of Indonesia / Indonesia.travel. This site carries no commercial recommendations.</p>
+          <p class="mt-2">Image rights: all photo copyrights remain with their respective photographers. Photos used are from Unsplash under its licence and stored as local files.</p>
+          <p class="mt-2">© 2026 Puri Saren Ubud Heritage Guide. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <div id="cookie-banner" class="cookie-banner" hidden role="region" aria-label="Cookie choices">
+      <div class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div><strong class="serif text-lg">Privacy first.</strong><p class="mt-1 text-sm text-white/68">Analytics are off by default. You can allow them, reject non-essential ones, or set choices in detail.</p></div>
+        <div class="flex flex-wrap gap-2 sm:justify-end"><a id="banner-settings" class="btn-secondary text-sm" href="/en/cookie-settings/">Settings</a><button id="banner-reject" class="btn-secondary text-sm">Reject</button><button id="banner-accept" class="btn-primary border-0 text-sm">Allow analytics</button></div>
+      </div>
+    <p id="banner-status" role="status" aria-live="polite"></p></div>
+
+    <script is:inline>
+      (() => {
+        const STORAGE_KEY = 'puri-saren-cookie-v1';
+        const GA_ID = 'G-HXM22WWPKP';
+        const banner = document.getElementById('cookie-banner');
+
+        const readPrefs = () => {
+          try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; }
+        };
+        const writePrefs = (prefs) => {
+          applyAnalytics(prefs.analytics === true);
+          let saved = false;
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs)); saved = true; } catch {}
+          const message = saved ? 'Your cookie preferences have been saved.' : 'Choice applies to this page. The browser could not store it for next visits.';
+          if (banner) banner.hidden = saved;
+          const status = document.getElementById('banner-status');
+          if (status) status.textContent = saved ? '' : message;
+        };
+        const applyAnalytics = (enabled) => {
+          window['ga-disable-' + GA_ID] = !enabled;
+          if (!enabled || document.querySelector('script[data-ga4]')) return;
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ window.dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', GA_ID, { anonymize_ip: true });
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+          script.dataset.ga4 = 'consented';
+          document.head.appendChild(script);
+        };
+
+        const initial = readPrefs();
+        applyAnalytics(initial?.analytics === true);
+        if (!initial && banner) banner.hidden = false;
+
+        const reject = () => writePrefs({ necessary: true, analytics: false, preferences: false, marketing: false });
+        document.getElementById('banner-reject')?.addEventListener('click', reject);
+        document.getElementById('banner-accept')?.addEventListener('click', () => writePrefs({ necessary: true, analytics: true, preferences: false, marketing: false }));
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+---
+import type { Topic, Lang } from '../data/topics';
+import { GROUP_LABELS, topicContent } from '../data/topics';
+
+interface Props {
+  lang: Lang;
+  topic: Topic;
+}
+
+const { lang, topic } = Astro.props;
+const content = lang === 'en' ? topic.en : topic.id;
+const groupLabel = GROUP_LABELS[topic.group][lang];
+const base = lang === 'en' ? '/en/' : '/';
+const relatedBase = lang === 'en' ? '/en/' : '/';
+
+const relatedTopics = (content.related || [])
+  .map((slug) => {
+    const t = topicContent(lang, slug);
+    return t ? { slug, title: t.h1, description: t.description } : null;
+  })
+  .filter((x): x is { slug: string; title: string; description: string } => x !== null);
+---
+
+<section class="bg-[#fffaf1] pb-14 pt-12 lg:pb-20 lg:pt-16">
+  <div class="mx-auto max-w-4xl px-5 lg:px-8">
+    <nav class="mb-6 flex flex-wrap items-center gap-2 text-sm text-[#8a7c6c]" aria-label="Breadcrumb">
+      <a class="source-link no-underline" href={base}>{lang === 'en' ? 'Home' : 'Beranda'}</a>
+      <span aria-hidden="true">/</span>
+      <span class="font-semibold text-[#743625]">{groupLabel}</span>
+    </nav>
+    <p class="eyebrow">{groupLabel}</p>
+    <h1 class="serif mt-4 text-[clamp(2.4rem,6vw,4rem)] font-bold leading-[1.02] tracking-tight">{content.h1}</h1>
+    <p class="mt-5 text-lg leading-8 text-[#554b42]">{content.lead}</p>
+    <p class="mt-5 text-sm font-bold uppercase tracking-[.12em] text-[#743625]">{lang === 'en' ? 'Updated' : 'Terakhir diperbarui'}: {content.updated}</p>
+  </div>
+</section>
+
+<article class="bg-[#fffaf1]">
+  <div class="mx-auto max-w-4xl px-5 lg:px-8">
+    {
+      content.sections.map((section) => (
+        <section id={section.id} class="mb-12 scroll-mt-24">
+          <h2 class="serif text-3xl font-bold tracking-tight text-[#1d1915]">{section.heading}</h2>
+          {section.paragraphs?.map((p) => <p class="mt-4 text-[17px] leading-8 text-[#554b42]">{p}</p>)}
+          {section.bullets && (
+            <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+              {section.bullets.map((b) => (
+                <li class="card-flat rounded-2xl p-4 text-[15px] text-[#554b42]">{b}</li>
+              ))}
+            </ul>
+          )}
+          {section.callout && (
+            <div class="doc-note mt-5">
+              <strong>{lang === 'en' ? 'Note' : 'Catatan'}:</strong> {section.callout}
+            </div>
+          )}
+        </section>
+      ))
+    }
+  </div>
+</article>
+
+<section class="bg-[#1d1915] py-16 text-[#f6f0e6] lg:py-20">
+  <div class="mx-auto max-w-4xl px-5 lg:px-8">
+    <span class="eyebrow !text-[#d7ad67]">{lang === 'en' ? 'Questions' : 'Tanya jawab'}</span>
+    <h2 class="section-title mt-4 text-white">{lang === 'en' ? 'Common questions' : 'Pertanyaan umum'}</h2>
+    <div class="mt-8 space-y-3">
+      {
+        content.faqs.map((f, i) => (
+          <details class="rounded-[20px] border border-white/12 bg-white/5 p-5" open={i === 0}>
+            <summary class="cursor-pointer list-none pr-8 font-extrabold text-white">{f.q}</summary>
+            <p class="mt-3 text-sm leading-6 text-white/62">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{
+  relatedTopics.length > 0 && (
+    <section class="bg-[#efe4d3] py-16 lg:py-20">
+      <div class="mx-auto max-w-4xl px-5 lg:px-8">
+        <span class="eyebrow">{lang === 'en' ? 'Related guides' : 'Panduan terkait'}</span>
+        <h2 class="section-title mt-4">{lang === 'en' ? 'Continue exploring' : 'Lanjut menjelajah'}</h2>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {relatedTopics.map((r) => (
+            <a class="card-flat rounded-[22px] p-6 no-underline transition hover:-translate-y-0.5" href={`${relatedBase}${r.slug}/`}>
+              <h3 class="serif text-xl font-bold text-[#1d1915]">{r.title}</h3>
+              <p class="mt-2 text-sm text-[#65584c]">{r.description}</p>
+              <span class="mt-4 inline-flex text-sm font-bold text-[#743625] no-underline">
+                {lang === 'en' ? 'Read guide' : 'Baca panduan'} <span aria-hidden="true">→</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
